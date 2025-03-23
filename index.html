@@ -3,44 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKW Team Scores</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
+    <title>Team Scores</title>
 </head>
 <body>
-    <h1>MKW Team Scores</h1>
+    <h1>Team Scores</h1>
     <div id="scores"></div>
 
     <script>
-        function updateScores() {
-            fetch('https://mkw-table-bot-api.jprq.site/api/json/team_scores/1353450549944516658')
-                .then(response => response.json())
-                .then(data => {
-                    const scoresDiv = document.getElementById('scores');
-                    let html = `<h2>${data.title_str}</h2>`;
-                    html += `<p>Format: ${data.format}, Races played: ${data.races_played}</p>`;
-                    html += '<table><tr><th>Team</th><th>Score</th><th>Penalties</th></tr>';
-                    
-                    for (const [teamName, teamData] of Object.entries(data.teams)) {
-                        html += `<tr>
-                            <td style="color: ${teamData.hex_color}">${teamData.table_tag_str}</td>
-                            <td>${teamData.total_score}</td>
-                            <td>${teamData.penalties}</td>
-                        </tr>`;
-                    }
-                    
-                    html += '</table>';
-                    scoresDiv.innerHTML = html;
-                })
-                .catch(error => console.error('Error fetching data:', error));
-        }
+        // Fetch data from the API
+        fetch('https://mkw-table-bot-api.jprq.site/api/json/team_scores/1353450549944516658')
+            .then(response => response.json())
+            .then(data => {
+                // Get the scores container
+                const scoresContainer = document.getElementById('scores');
 
-        // Update scores immediately and then every 5 minutes
-        updateScores();
-        setInterval(updateScores, 300000);
+                // Create elements to display the title and format
+                const titleElement = document.createElement('h2');
+                titleElement.textContent = data.title_str;
+                scoresContainer.appendChild(titleElement);
+
+                const formatElement = document.createElement('p');
+                formatElement.textContent = `Format: ${data.format}`;
+                scoresContainer.appendChild(formatElement);
+
+                const racesPlayedElement = document.createElement('p');
+                racesPlayedElement.textContent = `Races Played: ${data.races_played}`;
+                scoresContainer.appendChild(racesPlayedElement);
+
+                // Loop through each team and display their information
+                Object.keys(data.teams).forEach(teamKey => {
+                    const team = data.teams[teamKey];
+
+                    // Create elements to display team information
+                    const teamElement = document.createElement('div');
+                    teamElement.style.color = team.hex_color;
+
+                    const teamTitleElement = document.createElement('h3');
+                    teamTitleElement.textContent = team.table_tag_str;
+                    teamElement.appendChild(teamTitleElement);
+
+                    const teamScoreElement = document.createElement('p');
+                    teamScoreElement.textContent = `Total Score: ${team.total_score}`;
+                    teamElement.appendChild(teamScoreElement);
+
+                    const teamPenaltyElement = document.createElement('p');
+                    teamPenaltyElement.textContent = `Penalties: ${team.penalties}`;
+                    teamElement.appendChild(teamPenaltyElement);
+
+                    // Create a list to display the players and their scores
+                    const playersList = document.createElement('ul');
+                    Object.keys(team.players).forEach(playerKey => {
+                        const player = team.players[playerKey];
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${player.table_name} (${player.flag}): ${player.total_score}`;
+                        playersList.appendChild(listItem);
+                    });
+
+                    teamElement.appendChild(playersList);
+                    scoresContainer.appendChild(teamElement);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
     </script>
 </body>
 </html>
