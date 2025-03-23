@@ -1,0 +1,22 @@
+name: Auto-Update Data
+on:
+  schedule:
+    - cron: '0 * * * *'  # Hourly updates
+  workflow_dispatch:     # Manual trigger option
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JamesIves/fetch-api-data-action@v3
+        with:
+          endpoint: https://mkw-table-bot-api.jprq.site/api/json/team_scores/1353450549944516658
+          configuration: '{ "method": "GET" }'
+          output: data/team.json
+      - name: Commit Changes
+        run: |
+          git config --global user.name "GitHub Bot"
+          git config --global user.email "actions@users.noreply.github.com"
+          git add data/team.json
+          git commit -m "Auto-update team data" || echo "No changes"
+          git push
