@@ -55,9 +55,9 @@
     <div id="scores"></div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const tableId = urlParams.get('table_id') || 'default';
-        
+        const tableId = localStorage.getItem('TABLE_ID') || 'default';
+        const playerName = localStorage.getItem('PLAYER_NAME') || 'blitzu';
+
         fetch(`https://mkw-table-bot-api.jprq.site/api/json/team_scores/${tableId}`)
             .then(response => {
                 if (!response.ok) {
@@ -79,12 +79,12 @@
                     teamScores.push({
                         name: team.table_tag_str.replace(/#\w+/, '').trim(),
                         score: team.total_score,
-                        hasBlitzu: Object.values(team.players).some(player => player.lounge_name === 'blitzu')
+                        hasPlayer: Object.values(team.players).some(player => player.lounge_name === playerName)
                     });
                 });
 
-                // Sort the teamScores array to ensure the team with "blitzu" is first if it exists
-                teamScores.sort((a, b) => b.hasBlitzu - a.hasBlitzu);
+                // Sort the teamScores array to ensure the team with the selected player is first if it exists
+                teamScores.sort((a, b) => b.hasPlayer - a.hasPlayer);
 
                 // Create elements to display the team scores in the specified format
                 const row = document.createElement('div');
