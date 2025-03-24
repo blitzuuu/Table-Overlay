@@ -14,26 +14,39 @@
             background-color: #f0f0f0;
         }
         #scores {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            display: table;
             font-family: 'Roboto Mono', monospace;
             font-size: 48px;
             font-weight: 600;
             color: white;
             padding: 20px;
         }
-        .name, .score, .races {
-            width: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .row {
+            display: table-row;
         }
-        .name {
+        .cell {
+            display: table-cell;
+            padding: 0 10px;
+        }
+        .name-left {
+            text-align: left;
             width: 5ch; /* Enough for 5 letters */
         }
-        .score, .races {
+        .score-left {
+            text-align: left;
             width: 3ch; /* Enough for 3 letters */
+        }
+        .races {
+            text-align: center;
+            width: 3ch; /* Enough for 3 letters */
+        }
+        .score-right {
+            text-align: right;
+            width: 3ch; /* Enough for 3 letters */
+        }
+        .name-right {
+            text-align: right;
+            width: 5ch; /* Enough for 5 letters */
         }
     </style>
 </head>
@@ -65,32 +78,38 @@
                 teamScores.sort((a, b) => b.hasBlitzu - a.hasBlitzu);
 
                 // Create elements to display the team scores in the specified format
+                const row = document.createElement('div');
+                row.className = 'row';
+
                 const name1 = document.createElement('div');
-                name1.className = 'name';
+                name1.className = 'cell name-left';
                 name1.textContent = teamScores[0].name;
 
                 const score1 = document.createElement('div');
-                score1.className = 'score';
+                score1.className = 'cell score-left';
                 score1.textContent = teamScores[0].score;
 
                 const races = document.createElement('div');
-                races.className = 'races';
+                races.className = 'cell races';
                 races.textContent = `R${data.races_played}`;
 
                 const score2 = document.createElement('div');
-                score2.className = 'score';
+                score2.className = 'cell score-right';
                 score2.textContent = teamScores[1].score;
 
                 const name2 = document.createElement('div');
-                name2.className = 'name';
+                name2.className = 'cell name-right';
                 name2.textContent = teamScores[1].name;
 
-                // Append the elements to the scores container
-                scoresContainer.appendChild(name1);
-                scoresContainer.appendChild(score1);
-                scoresContainer.appendChild(races);
-                scoresContainer.appendChild(score2);
-                scoresContainer.appendChild(name2);
+                // Append the cells to the row
+                row.appendChild(name1);
+                row.appendChild(score1);
+                row.appendChild(races);
+                row.appendChild(score2);
+                row.appendChild(name2);
+
+                // Append the row to the scores container
+                scoresContainer.appendChild(row);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
