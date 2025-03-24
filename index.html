@@ -10,58 +10,31 @@
     <div id="scores"></div>
 
     <script>
-        // Fetch data from the API
-        fetch('https://mkw-table-bot-api.jprq.site/api/json/team_scores/1353450549944516658')
+        // Fetch data from the example.json file
+        fetch('example.json')
             .then(response => response.json())
             .then(data => {
                 // Get the scores container
                 const scoresContainer = document.getElementById('scores');
 
-                // Create elements to display the title and format
-                const titleElement = document.createElement('h2');
-                titleElement.textContent = data.title_str;
-                scoresContainer.appendChild(titleElement);
+                // Create an array to store team names and scores
+                const teamScores = [];
 
-                const formatElement = document.createElement('p');
-                formatElement.textContent = `Format: ${data.format}`;
-                scoresContainer.appendChild(formatElement);
-
-                const racesPlayedElement = document.createElement('p');
-                racesPlayedElement.textContent = `Races Played: ${data.races_played}`;
-                scoresContainer.appendChild(racesPlayedElement);
-
-                // Loop through each team and display their information
+                // Loop through each team and get their names and scores
                 Object.keys(data.teams).forEach(teamKey => {
                     const team = data.teams[teamKey];
-
-                    // Create elements to display team information
-                    const teamElement = document.createElement('div');
-                    teamElement.style.color = team.hex_color;
-
-                    const teamTitleElement = document.createElement('h3');
-                    teamTitleElement.textContent = team.table_tag_str;
-                    teamElement.appendChild(teamTitleElement);
-
-                    const teamScoreElement = document.createElement('p');
-                    teamScoreElement.textContent = `Total Score: ${team.total_score}`;
-                    teamElement.appendChild(teamScoreElement);
-
-                    const teamPenaltyElement = document.createElement('p');
-                    teamPenaltyElement.textContent = `Penalties: ${team.penalties}`;
-                    teamElement.appendChild(teamPenaltyElement);
-
-                    // Create a list to display the players and their scores
-                    const playersList = document.createElement('ul');
-                    Object.keys(team.players).forEach(playerKey => {
-                        const player = team.players[playerKey];
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${player.table_name} (${player.flag}): ${player.total_score}`;
-                        playersList.appendChild(listItem);
-                    });
-
-                    teamElement.appendChild(playersList);
-                    scoresContainer.appendChild(teamElement);
+                    teamScores.push(`${team.table_tag_str.replace(/#\w+/, '').trim()} ${team.total_score}`);
                 });
+
+                // Create a string to display the team scores on one line
+                const scoresText = teamScores.join(' - ');
+
+                // Create a paragraph element to display the scores
+                const scoresElement = document.createElement('p');
+                scoresElement.textContent = scoresText;
+
+                // Append the scores element to the scores container
+                scoresContainer.appendChild(scoresElement);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
