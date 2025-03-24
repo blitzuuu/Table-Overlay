@@ -93,25 +93,33 @@
                 name1.className = 'cell name-left';
                 name1.textContent = teamScores[0].name;
 
+                const divider1 = document.createElement('div');
+                divider1.className = 'cell divider';
+                divider1.textContent = '|';
+
                 const score1 = document.createElement('div');
                 score1.className = 'cell score-left';
                 score1.textContent = teamScores[0].score;
 
-                const divider1 = document.createElement('div');
-                divider1.className = 'cell divider';
-                divider1.textContent = '|';
+                const divider2 = document.createElement('div');
+                divider2.className = 'cell divider';
+                divider2.textContent = '|';
 
                 const races = document.createElement('div');
                 races.className = 'cell races';
                 races.textContent = `R${data.races_played}`;
 
-                const divider2 = document.createElement('div');
-                divider2.className = 'cell divider-right';
-                divider2.textContent = '|';
+                const divider3 = document.createElement('div');
+                divider3.className = 'cell divider-right';
+                divider3.textContent = '|';
 
                 const score2 = document.createElement('div');
                 score2.className = 'cell score-right';
                 score2.textContent = teamScores[1].score;
+
+                const divider4 = document.createElement('div');
+                divider4.className = 'cell divider-right';
+                divider4.textContent = '|';
 
                 const name2 = document.createElement('div');
                 name2.className = 'cell name-right';
@@ -119,11 +127,13 @@
 
                 // Append the cells to the row
                 row.appendChild(name1);
-                row.appendChild(score1);
                 row.appendChild(divider1);
-                row.appendChild(races);
+                row.appendChild(score1);
                 row.appendChild(divider2);
+                row.appendChild(races);
+                row.appendChild(divider3);
                 row.appendChild(score2);
+                row.appendChild(divider4);
                 row.appendChild(name2);
 
                 // Append the row to the scores container
