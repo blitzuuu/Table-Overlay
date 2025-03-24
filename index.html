@@ -14,12 +14,26 @@
             background-color: #f0f0f0;
         }
         #scores {
-            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
             font-family: 'Roboto Mono', monospace;
             font-size: 48px;
             font-weight: 600;
             color: white;
             padding: 20px;
+        }
+        .name, .score, .races {
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .name {
+            width: 5ch; /* Enough for 5 letters */
+        }
+        .score, .races {
+            width: 3ch; /* Enough for 3 letters */
         }
     </style>
 </head>
@@ -50,15 +64,33 @@
                 // Sort the teamScores array to ensure the team with "blitzu" is first if it exists
                 teamScores.sort((a, b) => b.hasBlitzu - a.hasBlitzu);
 
-                // Create a string to display the team scores in the specified format
-                const scoresText = `${teamScores[0].name} ${teamScores[0].score} R${data.races_played} ${teamScores[1].score} ${teamScores[1].name}`;
+                // Create elements to display the team scores in the specified format
+                const name1 = document.createElement('div');
+                name1.className = 'name';
+                name1.textContent = teamScores[0].name;
 
-                // Create a paragraph element to display the scores
-                const scoresElement = document.createElement('p');
-                scoresElement.textContent = scoresText;
+                const score1 = document.createElement('div');
+                score1.className = 'score';
+                score1.textContent = teamScores[0].score;
 
-                // Append the scores element to the scores container
-                scoresContainer.appendChild(scoresElement);
+                const races = document.createElement('div');
+                races.className = 'races';
+                races.textContent = `R${data.races_played}`;
+
+                const score2 = document.createElement('div');
+                score2.className = 'score';
+                score2.textContent = teamScores[1].score;
+
+                const name2 = document.createElement('div');
+                name2.className = 'name';
+                name2.textContent = teamScores[1].name;
+
+                // Append the elements to the scores container
+                scoresContainer.appendChild(name1);
+                scoresContainer.appendChild(score1);
+                scoresContainer.appendChild(races);
+                scoresContainer.appendChild(score2);
+                scoresContainer.appendChild(name2);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
