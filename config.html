@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure Team Scores</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label, input {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 18px;
+            margin: 5px;
+        }
+        button {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 18px;
+            margin: 10px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="configForm">
+        <label for="table_id">Table ID:</label>
+        <input type="text" id="table_id" name="table_id" required>
+
+        <label for="player_name">Player Name:</label>
+        <input type="text" id="player_name" name="player_name" value="blitzu" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('configForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const tableId = document.getElementById('table_id').value;
+            const playerName = document.getElementById('player_name').value;
+
+            // Redirect to index.html with the query parameters
+            window.location.href = `index.html?table_id=${tableId}&player_name=${playerName}`;
+        });
+    </script>
+</body>
+</html>
