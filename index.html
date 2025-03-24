@@ -51,7 +51,7 @@
                 teamScores.sort((a, b) => b.hasBlitzu - a.hasBlitzu);
 
                 // Create a string to display the team scores in the specified format
-                const scoresText = `${teamScores[0].name} ${teamScores[0].score} - ${teamScores[1].score} ${teamScores[1].name}`;
+                const scoresText = `${teamScores[0].name} ${teamScores[0].score} R${data.races_played} ${teamScores[1].score} ${teamScores[1].name}`;
 
                 // Create a paragraph element to display the scores
                 const scoresElement = document.createElement('p');
