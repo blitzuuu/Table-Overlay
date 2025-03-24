@@ -55,8 +55,10 @@
     <div id="scores"></div>
 
     <script>
-        // Fetch data from the example.json file
-        fetch('example.json')
+        const urlParams = new URLSearchParams(window.location.search);
+        const tableId = urlParams.get('table_id') || 'default';
+        
+        fetch(`https://mkw-table-bot-api.jprq.site/api/json/team_scores/${tableId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
