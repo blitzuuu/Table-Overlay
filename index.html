@@ -26,7 +26,7 @@
         }
         .cell {
             display: table-cell;
-            padding: 0 10px;
+            padding: 0 20px; /* Increase padding for more space */
         }
         .name-left {
             text-align: left;
@@ -36,9 +36,17 @@
             text-align: left;
             width: 3ch; /* Enough for 3 letters */
         }
+        .divider {
+            text-align: center;
+            width: 1ch; /* Divider width */
+        }
         .races {
             text-align: center;
             width: 3ch; /* Enough for 3 letters */
+        }
+        .divider-right {
+            text-align: center;
+            width: 1ch; /* Divider width */
         }
         .score-right {
             text-align: right;
@@ -89,9 +97,17 @@
                 score1.className = 'cell score-left';
                 score1.textContent = teamScores[0].score;
 
+                const divider1 = document.createElement('div');
+                divider1.className = 'cell divider';
+                divider1.textContent = '|';
+
                 const races = document.createElement('div');
                 races.className = 'cell races';
                 races.textContent = `R${data.races_played}`;
+
+                const divider2 = document.createElement('div');
+                divider2.className = 'cell divider-right';
+                divider2.textContent = '|';
 
                 const score2 = document.createElement('div');
                 score2.className = 'cell score-right';
@@ -104,7 +120,9 @@
                 // Append the cells to the row
                 row.appendChild(name1);
                 row.appendChild(score1);
+                row.appendChild(divider1);
                 row.appendChild(races);
+                row.appendChild(divider2);
                 row.appendChild(score2);
                 row.appendChild(name2);
 
