@@ -55,8 +55,9 @@
     <div id="scores"></div>
 
     <script>
-        const tableId = localStorage.getItem('TABLE_ID') || '1353852776559546488'; // Default TABLE_ID
-        const url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
+        const tableId = localStorage.getItem('TABLE_ID') || 'default'; // Default TABLE_ID
+        const playerName = localStorage.getItem('PLAYER_NAME') || 'blitzu'; // Default player name
+        const url = `https://mkw-table-bot-api.jprq.site/api/picture/full_scores/${tableId}`;
 
         fetch(url)
             .then(response => response.text())
