@@ -66,7 +66,7 @@
                 
                 const scoresContainer = document.getElementById('scores');
                 const teams = doc.querySelectorAll('.team_wrapper');
-                const racesPlayed = doc.querySelector('.races_played').textContent;
+                const racesPlayed = doc.querySelector('.races_played').textContent.replace(' races', 'R');
 
                 if (teams.length >= 2) {
                     const team1 = teams[0];
