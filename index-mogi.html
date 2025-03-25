@@ -54,14 +54,12 @@
                     let teams = Array.from(doc.querySelectorAll('.team_wrapper'));
                     if (teams.length === 0) {
                         console.error('No teams found in the fetched data');
-                        scoresContainer.textContent = 'No teams found in the fetched data';
                         return;
                     }
 
                     const racesPlayed = doc.querySelector('.races_played');
                     if (!racesPlayed) {
                         console.error('No races played information found in the fetched data');
-                        scoresContainer.textContent = 'No races played information found in the fetched data';
                         return;
                     }
 
@@ -86,7 +84,6 @@
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
-                    document.getElementById('scores').textContent = 'Error fetching data';
                 });
         }
 
