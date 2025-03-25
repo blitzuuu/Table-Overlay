@@ -30,28 +30,32 @@
             padding: 0 20px;
             height: 132%;
         }
-        .name-left {
-            text-align: right;
-            width: 5ch;
+        .name-left, .name-right {
+            text-align: center;
+            background-color: #f7008c; /* Background color for team names */
         }
         .score-left {
             text-align: right; /* Align left score to the right */
             width: 3ch;
+            background-color: #575757; /* Background color for scores */
         }
         .races {
             text-align: center;
             width: 3ch;
+            background-color: #1f1f1f; /* Background color for race number */
         }
         .score-right {
             text-align: left; /* Align right score to the left */
             width: 3ch;
-        }
-        .name-right {
-            text-align: left;
-            width: 5ch;
+            background-color: #575757; /* Background color for scores */
         }
         .small-text {
             font-size: 24px; /* Smaller font size for race number */
+        }
+        .name-container {
+            display: flex;
+            justify-content: center;
+            min-width: max-content;
         }
     </style>
 </head>
@@ -115,12 +119,23 @@
                         const team2Name = team2.querySelector('.team_name').textContent.trim();
                         const team2Score = team2.querySelector('.team_score').textContent.trim();
 
-                        const row = document.createElement('div');
-                        row.className = 'row';
-
+                        // Create a container for team names to ensure they have the same width
+                        const nameContainer1 = document.createElement('div');
+                        nameContainer1.className = 'name-container';
                         const name1 = document.createElement('div');
                         name1.className = 'cell name-left';
                         name1.textContent = team1Name;
+                        nameContainer1.appendChild(name1);
+
+                        const nameContainer2 = document.createElement('div');
+                        nameContainer2.className = 'name-container';
+                        const name2 = document.createElement('div');
+                        name2.className = 'cell name-right';
+                        name2.textContent = team2Name;
+                        nameContainer2.appendChild(name2);
+
+                        const row = document.createElement('div');
+                        row.className = 'row';
 
                         const score1 = document.createElement('div');
                         score1.className = 'cell score-left';
@@ -134,15 +149,11 @@
                         score2.className = 'cell score-right';
                         score2.textContent = team2Score;
 
-                        const name2 = document.createElement('div');
-                        name2.className = 'cell name-right';
-                        name2.textContent = team2Name;
-
-                        row.appendChild(name1);
+                        row.appendChild(nameContainer1);
                         row.appendChild(score1);
                         row.appendChild(races);
                         row.appendChild(score2);
-                        row.appendChild(name2);
+                        row.appendChild(nameContainer2);
 
                         scoresContainer.appendChild(row);
                     } else {
