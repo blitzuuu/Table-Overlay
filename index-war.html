@@ -15,7 +15,7 @@
             background-color: transparent; /* Make background transparent */
         }
         #scores {
-            display: table;
+            display: none; /* Initially hide the scores div */
             font-family: 'Roboto Mono', monospace;
             font-size: 48px; /* Main font size */
             font-weight: 600;
@@ -77,11 +77,18 @@
     <div id="scores"></div>
 
     <script>
-        const tableId = localStorage.getItem('TABLE_ID') || 'default'; // Default TABLE_ID
+        const tableId = localStorage.getItem('TABLE_ID') || ''; // Default TABLE_ID is empty
         const playerName = localStorage.getItem('PLAYER_NAME') || 'blitzu'; // Default player name
         const url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
 
         function fetchAndUpdateScores() {
+            const scoresContainer = document.getElementById('scores');
+            if (!tableId) {
+                scoresContainer.innerHTML = ''; // Clear existing content
+                scoresContainer.style.display = 'none'; // Hide the scores container
+                return;
+            }
+
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -93,20 +100,19 @@
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
 
-                    const scoresContainer = document.getElementById('scores');
                     scoresContainer.innerHTML = ''; // Clear existing content
 
                     let teams = Array.from(doc.querySelectorAll('.team_wrapper'));
                     if (teams.length === 0) {
                         console.error('No teams found in the fetched data');
-                        scoresContainer.textContent = 'No teams found in the fetched data';
+                        scoresContainer.style.display = 'none'; // Hide the scores container
                         return;
                     }
 
                     const racesPlayed = doc.querySelector('.races_played');
                     if (!racesPlayed) {
                         console.error('No races played information found in the fetched data');
-                        scoresContainer.textContent = 'No races played information found in the fetched data';
+                        scoresContainer.style.display = 'none'; // Hide the scores container
                         return;
                     }
 
@@ -176,14 +182,18 @@
                         const maxNameWidth = Math.max(name1.offsetWidth, name2.offsetWidth);
                         name1.style.width = `${maxNameWidth}px`;
                         name2.style.width = `${maxNameWidth}px`;
+
+                        // Display the scores container
+                        scoresContainer.style.display = 'table';
                     } else {
                         console.error('Not enough teams found in the fetched data');
-                        scoresContainer.textContent = 'Not enough teams found in the fetched data';
+                        scoresContainer.style.display = 'none'; // Hide the scores container
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
-                    document.getElementById('scores').textContent = 'Error fetching data';
+                    scoresContainer.innerHTML = ''; // Clear existing content
+                    scoresContainer.style.display = 'none'; // Hide the scores container
                 });
         }
 
