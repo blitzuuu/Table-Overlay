@@ -16,7 +16,7 @@
         #scores {
             display: table;
             font-family: 'Roboto Mono', monospace;
-            font-size: 48px;
+            font-size: 36px; /* Make font smaller */
             font-weight: 600;
             color: white;
             padding: 20px;
@@ -34,7 +34,7 @@
             width: 5ch;
         }
         .score-left {
-            text-align: left;
+            text-align: right; /* Align left score to the right */
             width: 3ch;
         }
         .races {
@@ -42,7 +42,7 @@
             width: 3ch;
         }
         .score-right {
-            text-align: right;
+            text-align: left; /* Align right score to the left */
             width: 3ch;
         }
         .name-right {
@@ -88,7 +88,7 @@
                         return;
                     }
 
-                    const racesPlayedText = racesPlayed.textContent.replace(' races', 'R');
+                    const racesPlayedText = `R${racesPlayed.textContent.replace(' races', '')}`;
 
                     // Check if the player's name is in one of the teams and reorder if necessary
                     teams = teams.sort((teamA, teamB) => {
