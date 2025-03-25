@@ -64,14 +64,17 @@
     </style>
 </head>
 <body>
+    <!-- Form to configure team scores -->
     <form id="configForm">
         <label for="table_id">Table ID:<span id="table_id_updated" class="updated"></span></label>
         <input type="text" id="table_id" name="table_id" required>
 
-        <label for="player_name">Player Name:<span id="player_name_updated" class="updated"></span></label>
-        <input type="text" id="player_name" name="player_name" value="blitzu" required>
-
+        <!-- Player name is set to "blitzu" and hidden -->
+        <input type="hidden" id="player_name" name="player_name" value="blitzu">
+        
+        <!-- Submit and Reset buttons -->
         <button type="submit">Submit</button>
+        <button type="button" id="resetButton">Reset</button>
     </form>
 
     <script>
@@ -102,6 +105,16 @@
 
             // Display confirmation message
             document.getElementById('confirmation').textContent = 'Configuration saved! You can now view the scores on the index-war page.';
+        });
+
+        // Reset button functionality
+        document.getElementById('resetButton').addEventListener('click', function() {
+            localStorage.removeItem('TABLE_ID');
+            localStorage.removeItem('PLAYER_NAME');
+            document.getElementById('table_id').value = '';
+            document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
+            document.getElementById('table_id_updated').textContent = '';
+            document.getElementById('player_name_updated').textContent = '';
         });
     </script>
 </body>
