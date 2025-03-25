@@ -20,7 +20,6 @@
             font-weight: 600;
             color: white;
             padding: 20px;
-            border: 2px solid #b7b7b7; /* Add border around the table */
         }
         .row {
             display: table-row;
@@ -29,10 +28,14 @@
             display: table-cell;
             padding: 0 20px;
             height: 132%;
+            border: 2px solid #b7b7b7; /* Add border around the cells */
+            border-collapse: collapse; /* Ensure no borders between cells */
         }
         .name-left, .name-right {
             text-align: center;
             background-color: #f7008c; /* Background color for team names */
+            width: 1px; /* Make sure both team name cells have the same width */
+            white-space: nowrap; /* Prevent text from wrapping */
         }
         .score-left {
             text-align: right; /* Align left score to the right */
