@@ -19,8 +19,8 @@
             color: white;
             padding: 20px;
         }
-        .bold {
-            font-weight: bold;
+        .highlight {
+            color: lightyellow; /* Highlight color for the player's team */
         }
         .tag {
             display: inline-block;
@@ -65,7 +65,7 @@
                         return;
                     }
 
-                    const racesPlayedText = `[R${racesPlayed.textContent.replace(' races', '')}]`;
+                    const racesPlayedText = `R${racesPlayed.textContent.replace(' races', '')}`;
 
                     // Sort teams by score
                     teams = teams.sort((teamA, teamB) => {
@@ -79,7 +79,7 @@
                         const teamScore = team.querySelector('.team_score').textContent.trim();
                         const hasPlayer = Array.from(team.querySelectorAll('.player_name')).some(player => player.textContent.trim() === playerName);
 
-                        return `<span class="tag ${hasPlayer ? 'bold' : ''}">Tag: ${teamName} - ${teamScore}</span>`;
+                        return `<span class="tag ${hasPlayer ? 'highlight' : ''}">[${teamName}]-${teamScore}</span>`;
                     });
 
                     scoresContainer.innerHTML = `${racesPlayedText}&nbsp;&nbsp;&nbsp;` + teamElements.join('');
