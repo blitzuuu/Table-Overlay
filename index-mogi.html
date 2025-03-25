@@ -32,9 +32,9 @@
     <div id="scores"></div>
 
     <script>
-        const tableId = localStorage.getItem('TABLE_ID') || 'default'; // Default TABLE_ID
+        let tableId = localStorage.getItem('TABLE_ID') || 'default'; // Default TABLE_ID
         const playerName = localStorage.getItem('PLAYER_NAME') || 'blitzu'; // Default player name
-        const url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
+        let url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
 
         function fetchAndUpdateScores() {
             fetch(url)
@@ -87,8 +87,19 @@
                 });
         }
 
+        function checkForTableIdChange() {
+            const newTableId = localStorage.getItem('TABLE_ID') || 'default';
+            if (newTableId !== tableId) {
+                tableId = newTableId;
+                url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
+                fetchAndUpdateScores();
+            }
+        }
+
         // Fetch and update scores every 10 seconds
         setInterval(fetchAndUpdateScores, 10000);
+        // Check for table ID change every 10 seconds
+        setInterval(checkForTableIdChange, 10000);
 
         // Initial fetch
         fetchAndUpdateScores();
