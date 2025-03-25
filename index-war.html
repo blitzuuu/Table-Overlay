@@ -91,7 +91,7 @@
                         return;
                     }
 
-                    const racesPlayedText = `R<span class="small-text">${racesPlayed.textContent.replace(' races', '')}</span>`;
+                    const racesPlayedText = `<span class="small-text">R${racesPlayed.textContent.replace(' races', '')}</span>`;
 
                     // Check if the player's name is in one of the teams and reorder if necessary
                     teams = teams.sort((teamA, teamB) => {
