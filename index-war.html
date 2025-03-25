@@ -75,7 +75,20 @@
                     scoresContainer.innerHTML = ''; // Clear existing content
 
                     let teams = Array.from(doc.querySelectorAll('.team_wrapper'));
-                    const racesPlayed = doc.querySelector('.races_played').textContent.replace(' races', 'R');
+                    if (teams.length === 0) {
+                        console.error('No teams found in the fetched data');
+                        scoresContainer.textContent = 'No teams found in the fetched data';
+                        return;
+                    }
+
+                    const racesPlayed = doc.querySelector('.races_played');
+                    if (!racesPlayed) {
+                        console.error('No races played information found in the fetched data');
+                        scoresContainer.textContent = 'No races played information found in the fetched data';
+                        return;
+                    }
+
+                    const racesPlayedText = racesPlayed.textContent.replace(' races', 'R');
 
                     // Check if the player's name is in one of the teams and reorder if necessary
                     teams = teams.sort((teamA, teamB) => {
@@ -85,7 +98,7 @@
                         const teamBHasPlayer = teamBPlayers.includes(playerName);
 
                         if (teamAHasPlayer && !teamBHasPlayer) return -1;
-                        if (!teamAHasPlayer and teamBHasPlayer) return 1;
+                        if (!teamAHasPlayer && teamBHasPlayer) return 1;
                         return 0;
                     });
 
@@ -111,7 +124,7 @@
 
                         const races = document.createElement('div');
                         races.className = 'cell races';
-                        races.textContent = racesPlayed;
+                        races.textContent = racesPlayedText;
 
                         const score2 = document.createElement('div');
                         score2.className = 'cell score-right';
@@ -130,10 +143,12 @@
                         scoresContainer.appendChild(row);
                     } else {
                         console.error('Not enough teams found in the fetched data');
+                        scoresContainer.textContent = 'Not enough teams found in the fetched data';
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
+                    document.getElementById('scores').textContent = 'Error fetching data';
                 });
         }
 
