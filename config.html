@@ -74,7 +74,8 @@
         }
         .updated {
             color: green;
-            font-size: 14px;
+            font-family: 'Inter', sans-serif; /* Same font as Table ID */
+            font-size: 16px; /* Same size as Table ID */
             margin-left: 10px;
         }
     </style>
@@ -110,13 +111,21 @@
 
             // Display updated message
             if (tableId !== prevTableId) {
-                document.getElementById('table_id_updated').textContent = 'updated!';
+                const tableIdUpdated = document.getElementById('table_id_updated');
+                tableIdUpdated.textContent = 'updated!';
+                setTimeout(() => {
+                    tableIdUpdated.textContent = '';
+                }, 10000); // 10 seconds
             } else {
                 document.getElementById('table_id_updated').textContent = '';
             }
 
             if (playerName !== prevPlayerName) {
-                document.getElementById('player_name_updated').textContent = 'updated!';
+                const playerNameUpdated = document.getElementById('player_name_updated');
+                playerNameUpdated.textContent = 'updated!';
+                setTimeout(() => {
+                    playerNameUpdated.textContent = '';
+                }, 10000); // 10 seconds
             } else {
                 document.getElementById('player_name_updated').textContent = '';
             }
