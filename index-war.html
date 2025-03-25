@@ -20,6 +20,8 @@
             font-weight: 600;
             color: white;
             padding: 20px;
+            border: 2px solid #b7b7b7; /* Add border around the table */
+            border-spacing: 0;
         }
         .row {
             display: table-row;
@@ -28,13 +30,12 @@
             display: table-cell;
             padding: 0 20px;
             height: 132%;
-            border: 2px solid #b7b7b7; /* Add border around the cells */
-            border-collapse: collapse; /* Ensure no borders between cells */
+            border-left: 2px solid #b7b7b7; /* Add border around the cells */
+            border-right: 2px solid #b7b7b7; /* Add border around the cells */
         }
         .name-left, .name-right {
             text-align: center;
             background-color: #f7008c; /* Background color for team names */
-            width: 1px; /* Make sure both team name cells have the same width */
             white-space: nowrap; /* Prevent text from wrapping */
         }
         .score-left {
@@ -58,7 +59,6 @@
         .name-container {
             display: flex;
             justify-content: center;
-            min-width: max-content;
         }
     </style>
 </head>
@@ -158,7 +158,13 @@
                         row.appendChild(score2);
                         row.appendChild(nameContainer2);
 
+                        // Append the row to the scores container
                         scoresContainer.appendChild(row);
+
+                        // Adjust the width of the team name cells based on the largest name
+                        const maxNameWidth = Math.max(name1.offsetWidth, name2.offsetWidth);
+                        name1.style.width = `${maxNameWidth}px`;
+                        name2.style.width = `${maxNameWidth}px`;
                     } else {
                         console.error('Not enough teams found in the fetched data');
                         scoresContainer.textContent = 'Not enough teams found in the fetched data';
