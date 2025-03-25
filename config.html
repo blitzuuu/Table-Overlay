@@ -30,6 +30,10 @@
             color: white;
             border: none;
             padding: 5px;
+            margin-bottom: 10px; /* Add margin-bottom for spacing */
+        }
+        label {
+            margin-bottom: 5px; /* Add margin-bottom for spacing */
         }
         button {
             font-family: 'Roboto Mono', monospace;
@@ -50,20 +54,23 @@
             font-size: 18px;
             color: white;
         }
+        .updated {
+            color: green;
+            font-size: 14px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <form id="configForm">
-        <label for="table_id">Table ID:</label>
+        <label for="table_id">Table ID:<span id="table_id_updated" class="updated"></span></label>
         <input type="text" id="table_id" name="table_id" required>
 
-        <label for="player_name">Player Name:</label>
+        <label for="player_name">Player Name:<span id="player_name_updated" class="updated"></span></label>
         <input type="text" id="player_name" name="player_name" value="blitzu" required>
 
         <button type="submit">Submit</button>
     </form>
-
-    <div id="confirmation"></div> <!-- Add confirmation message div -->
 
     <script>
         document.getElementById('configForm').addEventListener('submit', function(event) {
@@ -72,8 +79,24 @@
             const playerName = document.getElementById('player_name').value;
 
             // Store the values in localStorage
+            const prevTableId = localStorage.getItem('TABLE_ID');
+            const prevPlayerName = localStorage.getItem('PLAYER_NAME');
+
             localStorage.setItem('TABLE_ID', tableId);
             localStorage.setItem('PLAYER_NAME', playerName);
+
+            // Display updated message
+            if (tableId !== prevTableId) {
+                document.getElementById('table_id_updated').textContent = 'updated!';
+            } else {
+                document.getElementById('table_id_updated').textContent = '';
+            }
+
+            if (playerName !== prevPlayerName) {
+                document.getElementById('player_name_updated').textContent = 'updated!';
+            } else {
+                document.getElementById('player_name_updated').textContent = '';
+            }
 
             // Display confirmation message
             document.getElementById('confirmation').textContent = 'Configuration saved! You can now view the scores on the index-war page.';
