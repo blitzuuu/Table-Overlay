@@ -29,13 +29,23 @@
             display: table-cell;
             padding: 0 20px;
             height: 132%;
-            border-top: 2px solid #b7b7b7; /* Add border to the top */
-            border-bottom: 2px solid #b7b7b7; /* Add border to the bottom */
-            border-radius: 8px; /* Slightly rounded corners */
+            border-top: 4px solid #b7b7b7; /* Thicker border on top */
+            border-bottom: 4px solid #b7b7b7; /* Thicker border on bottom */
         }
-        .name-left, .name-right {
+        .name-left {
             text-align: center;
             background-color: #f7008c; /* Background color for team names */
+            border-left: 4px solid #b7b7b7; /* Thicker border on the left */
+            border-top-left-radius: 8px; /* Rounded top left corner */
+            border-bottom-left-radius: 8px; /* Rounded bottom left corner */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+        .name-right {
+            text-align: center;
+            background-color: #f7008c; /* Background color for team names */
+            border-right: 4px solid #b7b7b7; /* Thicker border on the right */
+            border-top-right-radius: 8px; /* Rounded top right corner */
+            border-bottom-right-radius: 8px; /* Rounded bottom right corner */
             white-space: nowrap; /* Prevent text from wrapping */
         }
         .score-left {
