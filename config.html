@@ -12,7 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #18181b; /* Change background color */
         }
         form {
             display: flex;
@@ -23,12 +23,26 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 18px;
             margin: 5px;
+            color: white;
         }
         button {
             font-family: 'Roboto Mono', monospace;
             font-size: 18px;
             margin: 10px;
             padding: 5px 10px;
+            background-color: #3c404d; /* Change button color */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4a4e5a;
+        }
+        #confirmation {
+            margin-top: 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 18px;
+            color: white;
         }
     </style>
 </head>
@@ -43,6 +57,8 @@
         <button type="submit">Submit</button>
     </form>
 
+    <div id="confirmation"></div> <!-- Add confirmation message div -->
+
     <script>
         document.getElementById('configForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -53,7 +69,8 @@
             localStorage.setItem('TABLE_ID', tableId);
             localStorage.setItem('PLAYER_NAME', playerName);
 
-            alert('Configuration saved! You can now view the scores on the index-war page.');
+            // Display confirmation message
+            document.getElementById('confirmation').textContent = 'Configuration saved! You can now view the scores on the index-war page.';
         });
     </script>
 </body>
