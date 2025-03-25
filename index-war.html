@@ -16,7 +16,7 @@
         #scores {
             display: table;
             font-family: 'Roboto Mono', monospace;
-            font-size: 36px; /* Make font smaller */
+            font-size: 48px; /* Main font size */
             font-weight: 600;
             color: white;
             padding: 20px;
@@ -48,6 +48,9 @@
         .name-right {
             text-align: left;
             width: 5ch;
+        }
+        .small-text {
+            font-size: 24px; /* Smaller font size for race number */
         }
     </style>
 </head>
@@ -88,7 +91,7 @@
                         return;
                     }
 
-                    const racesPlayedText = `R${racesPlayed.textContent.replace(' races', '')}`;
+                    const racesPlayedText = `R<span class="small-text">${racesPlayed.textContent.replace(' races', '')}</span>`;
 
                     // Check if the player's name is in one of the teams and reorder if necessary
                     teams = teams.sort((teamA, teamB) => {
@@ -124,7 +127,7 @@
 
                         const races = document.createElement('div');
                         races.className = 'cell races';
-                        races.textContent = racesPlayedText;
+                        races.innerHTML = racesPlayedText;
 
                         const score2 = document.createElement('div');
                         score2.className = 'cell score-right';
