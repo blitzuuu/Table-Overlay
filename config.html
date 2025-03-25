@@ -32,20 +32,27 @@
             border-radius: 5px; /* Make input fields slightly rounded */
             padding: 5px;
             margin-bottom: 10px; /* Add margin-bottom for spacing */
+            width: 300px; /* Set a fixed width for alignment */
         }
         label {
             margin-bottom: 5px; /* Add margin-bottom for spacing */
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%; /* Ensure the buttons take the full width of the form */
+        }
         button {
             font-family: 'Roboto Mono', monospace;
             font-size: 18px;
-            margin: 10px;
+            margin: 10px 5px 0 5px; /* Adjust margins to fit the buttons */
             padding: 5px 10px;
             background-color: #3c404d; /* Change button color */
             color: white;
             border: none;
             border-radius: 5px; /* Make buttons slightly rounded */
             cursor: pointer;
+            flex: 1; /* Make buttons take equal space */
         }
         button:hover {
             background-color: #4a4e5a;
@@ -73,8 +80,10 @@
         <input type="hidden" id="player_name" name="player_name" value="blitzu">
         
         <!-- Submit and Reset buttons -->
-        <button type="submit">Submit</button>
-        <button type="button" id="resetButton">Reset</button>
+        <div class="button-container">
+            <button type="submit">Submit</button>
+            <button type="button" id="resetButton">Reset</button>
+        </div>
     </form>
 
     <script>
