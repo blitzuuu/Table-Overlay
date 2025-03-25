@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mogi Scores</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+            background-color: transparent; /* Make background transparent */
+            font-family: 'Roboto Mono', monospace;
+            font-size: 48px; /* Main font size */
+            font-weight: 600;
+            color: white;
+            padding: 20px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="scores"></div>
+
+    <script>
+        const tableId = localStorage.getItem('TABLE_ID') || 'default'; // Default TABLE_ID
+        const playerName = localStorage.getItem('PLAYER_NAME') || 'blitzu'; // Default player name
+        const url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
+
+        function fetchAndUpdateScores() {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    const scoresContainer = document.getElementById('scores');
+                    scoresContainer.innerHTML = ''; // Clear existing content
+
+                    let teams = Array.from(doc.querySelectorAll('.team_wrapper'));
+                    if (teams.length === 0) {
+                        console.error('No teams found in the fetched data');
+                        scoresContainer.textContent = 'No teams found in the fetched data';
+                        return;
+                    }
+
+                    const racesPlayed = doc.querySelector('.races_played');
+                    if (!racesPlayed) {
+                        console.error('No races played information found in the fetched data');
+                        scoresContainer.textContent = 'No races played information found in the fetched data';
+                        return;
+                    }
+
+                    const racesPlayedText = `R${racesPlayed.textContent.replace(' races', '')}`;
+
+                    // Sort teams by score
+                    teams = teams.sort((teamA, teamB) => {
+                        const scoreA = parseInt(teamA.querySelector('.team_score').textContent.trim(), 10);
+                        const scoreB = parseInt(teamB.querySelector('.team_score').textContent.trim(), 10);
+                        return scoreB - scoreA;
+                    });
+
+                    const teamElements = teams.map(team => {
+                        const teamName = team.querySelector('.team_name').textContent.trim();
+                        const teamScore = team.querySelector('.team_score').textContent.trim();
+                        const hasPlayer = Array.from(team.querySelectorAll('.player_name')).some(player => player.textContent.trim() === playerName);
+
+                        return `<span class="${hasPlayer ? 'bold' : ''}">Tag: ${teamName}</span>`;
+                    });
+
+                    scoresContainer.innerHTML = `${racesPlayedText}&nbsp;&nbsp;&nbsp;` + teamElements.join(', ');
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('scores').textContent = 'Error fetching data';
+                });
+        }
+
+        // Fetch and update scores every 10 seconds
+        setInterval(fetchAndUpdateScores, 10000);
+
+        // Initial fetch
+        fetchAndUpdateScores();
+    </script>
+</body>
+</html>
