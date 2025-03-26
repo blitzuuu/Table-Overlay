@@ -132,6 +132,9 @@
 
             // Display confirmation message
             document.getElementById('confirmation').textContent = 'Configuration saved! You can now view the scores on the index-war page.';
+
+            // Trigger custom events to update other pages
+            window.dispatchEvent(new Event('storage'));
         });
 
         // Reset button functionality
