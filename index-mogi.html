@@ -63,9 +63,8 @@
                     }
 
                     if (teams.length === 0) {
-                        const playerScore = doc.querySelector('.player_score');
-                        const scoreText = playerScore ? playerScore.textContent.trim() : 'N/A';
-                        scoresContainer.innerHTML = `${racesPlayedText} | <span class="highlight">ffa [${scoreText}]</span>`;
+                        const playerScore = Array.from(doc.querySelectorAll('.player_name')).find(player => player.textContent.trim() === playerName)?.nextElementSibling?.textContent.trim() || 'N/A';
+                        scoresContainer.innerHTML = `${racesPlayedText} | <span class="highlight">ffa [${playerScore}]</span>`;
                         return;
                     }
 
