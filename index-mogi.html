@@ -22,6 +22,9 @@
         .highlight {
             color: white; /* Highlight color for blitzu's team */
         }
+        .white-text {
+            color: white; /* White color for race number and divider */
+        }
         .tag {
             display: inline-block;
             margin-right: 20px;
@@ -52,18 +55,19 @@
                     scoresContainer.innerHTML = ''; // Clear existing content
 
                     let teams = Array.from(doc.querySelectorAll('.team_wrapper'));
-                    if (teams.length === 0) {
-                        console.error('No teams found in the fetched data');
-                        return;
-                    }
-
                     const racesPlayed = doc.querySelector('.races_played');
-                    if (!racesPlayed) {
-                        console.error('No races played information found in the fetched data');
-                        return;
+                    let racesPlayedText = '';
+
+                    if (racesPlayed) {
+                        racesPlayedText = `<span class="white-text">R${racesPlayed.textContent.replace(' races', '')}</span>`;
                     }
 
-                    const racesPlayedText = `R${racesPlayed.textContent.replace(' races', '')}`;
+                    if (teams.length === 0) {
+                        const playerScore = doc.querySelector('.player_score');
+                        const scoreText = playerScore ? playerScore.textContent.trim() : 'N/A';
+                        scoresContainer.innerHTML = `${racesPlayedText} | <span class="highlight">ffa [${scoreText}]</span>`;
+                        return;
+                    }
 
                     // Sort teams by score
                     teams = teams.sort((teamA, teamB) => {
@@ -80,7 +84,7 @@
                         return `<span class="tag ${hasPlayer ? 'highlight' : ''}">[${teamName}] ${teamScore}</span>`;
                     });
 
-                    scoresContainer.innerHTML = `${racesPlayedText} | ` + teamElements.join('');
+                    scoresContainer.innerHTML = `${racesPlayedText} | <span class="white-text">|</span> ` + teamElements.join('');
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
