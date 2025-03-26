@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mogi Scores</title>
+    <title>War Scores</title>
     <style>
         body {
             display: flex;
@@ -83,7 +83,7 @@
                         return `<span class="tag ${hasPlayer ? 'highlight' : ''}">[${teamName}] ${teamScore}</span>`;
                     });
 
-                    scoresContainer.innerHTML = `${racesPlayedText} | <span class="white-text">|</span> ` + teamElements.join('');
+                    scoresContainer.innerHTML = `${racesPlayedText} <span class="white-text">|</span> ` + teamElements.join('');
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
