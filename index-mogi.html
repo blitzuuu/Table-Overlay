@@ -90,8 +90,7 @@
                 });
         }
 
-        function checkForTableIdChange() {
-            const newTableId = localStorage.getItem('TABLE_ID') || 'default';
+        function updateTableId(newTableId) {
             if (newTableId !== tableId) {
                 tableId = newTableId;
                 url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
@@ -99,10 +98,15 @@
             }
         }
 
+        // Monitor local storage for changes to TABLE_ID
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'TABLE_ID') {
+                updateTableId(event.newValue || 'default');
+            }
+        });
+
         // Fetch and update scores every 10 seconds
         setInterval(fetchAndUpdateScores, 10000);
-        // Check for table ID change every 10 seconds
-        setInterval(checkForTableIdChange, 10000);
 
         // Initial fetch
         fetchAndUpdateScores();
