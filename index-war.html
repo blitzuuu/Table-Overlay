@@ -33,7 +33,7 @@
             border-top: 4px solid #b7b7b7; /* Thicker border on top */
             border-bottom: 4px solid #b7b7b7; /* Thicker border on bottom */
         }
-        .name-left {
+        .name-left, .name-right {
             text-align: center;
             background-color: #f7008c; /* Background color for team names */
             border-left: 4px solid #b7b7b7; /* Thicker border on the left */
@@ -42,12 +42,9 @@
             white-space: nowrap; /* Prevent text from wrapping */
         }
         .name-right {
-            text-align: center;
-            background-color: #f7008c; /* Background color for team names */
             border-right: 4px solid #b7b7b7; /* Thicker border on the right */
             border-top-right-radius: 8px; /* Rounded top right corner */
             border-bottom-right-radius: 8px; /* Rounded bottom right corner */
-            white-space: nowrap; /* Prevent text from wrapping */
         }
         .score-left {
             text-align: right; /* Align left score to the right */
@@ -210,6 +207,13 @@
         setInterval(fetchAndUpdateScores, 10000);
         // Check for table ID change every 10 seconds
         setInterval(checkForTableIdChange, 10000);
+
+        // Monitor local storage for changes to TABLE_ID
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'TABLE_ID') {
+                checkForTableIdChange();
+            }
+        });
 
         // Initial fetch
         fetchAndUpdateScores();
