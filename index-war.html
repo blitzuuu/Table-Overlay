@@ -120,7 +120,7 @@
                     // Check if the player's name is in one of the teams and reorder if necessary
                     teams = teams.sort((teamA, teamB) => {
                         const teamAPlayers = Array.from(teamA.querySelectorAll('.player_name')).map(el => el.textContent.trim());
-                        const teamBPlayers = Array.from(teamB.querySelectorAll('.player_name')).map(el => el.textContent.trim());
+                        const teamBPlayers = Array.from(teamB.querySelectorAll('.player_name')). map(el => el.textContent.trim());
                         const teamAHasPlayer = teamAPlayers.includes(playerName);
                         const teamBHasPlayer = teamBPlayers.includes(playerName);
 
