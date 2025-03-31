@@ -83,8 +83,8 @@
             align-items: center;
         }
         .color-picker-container input[type="color"] {
-            width: 30px;
-            height: 30px;
+            width: 40px;  /* Make the color picker a square */
+            height: 40px; /* Make the color picker a square */
             padding: 0;
             border: none;
             margin-right: 10px;
@@ -96,7 +96,8 @@
         }
         .input-number-container input[type="number"] {
             -moz-appearance: textfield; /* Remove default number input arrows in Firefox */
-            width: 50px;
+            width: 40px;  /* Make the number input box same size as color picker */
+            height: 40px; /* Make the number input box same size as color picker */
             text-align: center;
             background-color: #3c404d;
             color: white;
@@ -108,10 +109,6 @@
         .input-number-container input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none; /* Remove default number input arrows in Chrome */
             margin: 0;
-        }
-        .input-number-container input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: inner-spin-button;
-            height: 25px;
         }
     </style>
 </head>
