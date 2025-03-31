@@ -89,44 +89,17 @@
             border: none;
             margin-right: 10px;
         }
-        .slider-container {
-            position: relative;
-            width: 100%;
+        .input-number-container {
+            display: flex;
+            align-items: center;
         }
-        .slider-tooltip {
-            display: none;
-            position: absolute;
-            bottom: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #3c404d;
-            color: white;
-            padding: 3px 7px;
-            border-radius: 3px;
-            font-size: 14px;
-            white-space: nowrap;
+        .input-number-container input[type="number"] {
+            -moz-appearance: textfield; /* Remove default number input arrows in Firefox */
         }
-        .slider-container input[type="range"] {
-            width: 100%;
+        .input-number-container input[type="number"]::-webkit-outer-spin-button,
+        .input-number-container input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none; /* Remove default number input arrows in Chrome */
             margin: 0;
-        }
-        .slider-container input[type="range"]::-webkit-slider-runnable-track {
-            height: 5px;
-            cursor: pointer;
-            background: #3c404d;
-            border-radius: 5px;
-        }
-        .slider-container input[type="range"]::-webkit-slider-thumb {
-            height: 15px;
-            width: 15px;
-            border-radius: 50%;
-            background: #3c404d; /* Remove white border */
-            cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -5px; /* Center the slider selector vertically */
-        }
-        .slider-container input[type="range"]:focus + .slider-tooltip {
-            display: block;
         }
     </style>
 </head>
@@ -145,10 +118,9 @@
             <input type="color" id="name_color" name="name_color" value="#f7008c">
         </div>
         
-        <label for="border_radius">Border Radius (1-10):</label>
-        <div class="slider-container">
-            <input type="range" id="border_radius" name="border_radius" min="1" max="10" value="5" step="1">
-            <div class="slider-tooltip" id="sliderTooltip">5</div>
+        <label for="border_radius">Border Radius (0-10):</label>
+        <div class="input-number-container">
+            <input type="number" id="border_radius" name="border_radius" min="0" max="10" value="5">
         </div>
         <input type="checkbox" id="enable_border" name="enable_border" checked>
 
@@ -220,24 +192,6 @@
             document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
             document.getElementById('table_id_updated').textContent = '';
             document.getElementById('player_name_updated').textContent = '';
-        });
-
-        // Slider tooltip functionality
-        const borderRadiusSlider = document.getElementById('border_radius');
-        const sliderTooltip = document.getElementById('sliderTooltip');
-        
-        borderRadiusSlider.addEventListener('input', function() {
-            sliderTooltip.textContent = borderRadiusSlider.value;
-            const percent = (borderRadiusSlider.value - borderRadiusSlider.min) / (borderRadiusSlider.max - borderRadiusSlider.min) * 100;
-            sliderTooltip.style.left = `calc(${percent}% + (${8 - percent * 0.15}px))`; // Adjust for tooltip positioning
-        });
-
-        borderRadiusSlider.addEventListener('mouseup', function() {
-            sliderTooltip.style.display = 'none';
-        });
-
-        borderRadiusSlider.addEventListener('mousedown', function() {
-            sliderTooltip.style.display = 'block';
         });
     </script>
 </body>
