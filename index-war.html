@@ -35,18 +35,7 @@
         }
         .name-left, .name-right {
             text-align: center;
-            background-color: #f7008c; /* Background color for team names */
             white-space: nowrap; /* Prevent text from wrapping */
-        }
-        .name-left {
-            border-left: 4px solid #b7b7b7; /* Thicker border on the left */
-            border-top-left-radius: 8px; /* Rounded top left corner */
-            border-bottom-left-radius: 8px; /* Rounded bottom left corner */
-        }
-        .name-right {
-            border-right: 4px solid #b7b7b7; /* Thicker border on the right */
-            border-top-right-radius: 8px; /* Rounded top right corner */
-            border-bottom-right-radius: 8px; /* Rounded bottom right corner */
         }
         .score-left {
             text-align: right; /* Align left score to the right */
@@ -79,7 +68,30 @@
         let tableId = localStorage.getItem('TABLE_ID') || ''; // Default TABLE_ID is empty
         const playerName = localStorage.getItem('PLAYER_NAME') || 'blitzu'; // Default player name
         let url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
-        
+
+        // Fetch settings from localStorage
+        const nameColor = localStorage.getItem('NAME_COLOR') || '#f7008c';
+        const borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
+        const enableBorder = localStorage.getItem('ENABLE_BORDER') === 'true';
+
+        function applySettings() {
+            const nameElements = document.querySelectorAll('.name-left, .name-right');
+            nameElements.forEach(element => {
+                element.style.backgroundColor = nameColor;
+                element.style.borderRadius = `${borderRadius}px`;
+                element.style.borderLeftStyle = enableBorder ? 'solid' : 'none';
+                element.style.borderRightStyle = enableBorder ? 'solid' : 'none';
+                element.style.borderTopStyle = enableBorder ? 'solid' : 'none';
+                element.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
+            });
+
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.style.borderTopStyle = enableBorder ? 'solid' : 'none';
+                cell.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
+            });
+        }
+
         function fetchAndUpdateScores() {
             const scoresContainer = document.getElementById('scores');
             if (!tableId) {
@@ -188,6 +200,9 @@
                         console.error('Not enough teams found in the fetched data');
                         scoresContainer.style.display = 'none'; // Hide the scores container
                     }
+
+                    // Apply settings after updating the scores
+                    applySettings();
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
@@ -226,6 +241,8 @@
         
         // Initial fetch
         fetchAndUpdateScores();
+        // Apply initial settings
+        applySettings();
     </script>
 </body>
 </html>
