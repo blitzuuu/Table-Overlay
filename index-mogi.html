@@ -103,7 +103,7 @@
             localStorage.removeItem('TABLE_ID');
             tableId = 'default';
             url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
-            fetchAndUpdateScores();
+            fetchAndUpdateScores(); // Call this function to update the scores immediately
         }
         
         // Monitor local storage for changes to TABLE_ID
