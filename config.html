@@ -78,6 +78,17 @@
             font-size: 16px; /* Same size as Table ID */
             margin-left: 10px;
         }
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+        }
+        .color-picker-container input[type="color"] {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border: none;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -90,13 +101,13 @@
         <input type="hidden" id="player_name" name="player_name" value="blitzu">
 
         <!-- New section for color, border radius, and border toggle -->
-        <label for="name_color">Name Background Color:</label>
-        <input type="color" id="name_color" name="name_color" value="#f7008c">
+        <div class="color-picker-container">
+            <label for="name_color">Name Background Color:</label>
+            <input type="color" id="name_color" name="name_color" value="#f7008c">
+        </div>
         
         <label for="border_radius">Border Radius (0-10):</label>
         <input type="range" id="border_radius" name="border_radius" min="0" max="10" value="5">
-        
-        <label for="enable_border">Enable Border:</label>
         <input type="checkbox" id="enable_border" name="enable_border" checked>
 
         <!-- Submit and Reset buttons -->
