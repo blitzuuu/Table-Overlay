@@ -82,12 +82,21 @@
             display: flex;
             align-items: center;
         }
+        .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            background-color: #3c404d;
+            border-radius: 5px;
+            padding: 5px;
+            width: 50px; /* Same width as border radius input */
+            height: 50px; /* Same height as border radius input */
+            justify-content: center;
+        }
         .color-picker-container input[type="color"] {
-            width: 40px;  /* Make the color picker a square */
-            height: 40px; /* Make the color picker a square */
+            width: 40px;  /* Make the color picker square */
+            height: 40px; /* Make the color picker square */
             padding: 0;
             border: none;
-            margin-right: 10px;
         }
         .input-number-container {
             display: flex;
@@ -96,8 +105,8 @@
         }
         .input-number-container input[type="number"] {
             -moz-appearance: textfield; /* Remove default number input arrows in Firefox */
-            width: 40px;  /* Make the number input box same size as color picker */
-            height: 40px; /* Make the number input box same size as color picker */
+            width: 50px;  /* Make the number input box same size as color picker */
+            height: 50px; /* Make the number input box same size as color picker */
             text-align: center;
             background-color: #3c404d;
             color: white;
@@ -124,7 +133,9 @@
         <!-- New section for color, border radius, and border toggle -->
         <div class="color-picker-container">
             <label for="name_color">Name Background Color:</label>
-            <input type="color" id="name_color" name="name_color" value="#f7008c">
+            <div class="color-picker-wrapper">
+                <input type="color" id="name_color" name="name_color" value="#f7008c">
+            </div>
         </div>
         
         <div class="input-number-container">
