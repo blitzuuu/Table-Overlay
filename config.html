@@ -89,6 +89,45 @@
             border: none;
             margin-right: 10px;
         }
+        .slider-container {
+            position: relative;
+        }
+        .slider-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3c404d;
+            color: white;
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .slider-container input[type="range"] {
+            width: 100%;
+            margin: 0;
+        }
+        .slider-container input[type="range"]::-webkit-slider-runnable-track {
+            height: 8px;
+            cursor: pointer;
+            animate: 0.2s;
+            background: #3c404d;
+            border-radius: 5px;
+        }
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+        }
+        .slider-container input[type="range"]:focus + .slider-tooltip {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +146,10 @@
         </div>
         
         <label for="border_radius">Border Radius (0-10):</label>
-        <input type="range" id="border_radius" name="border_radius" min="0" max="10" value="5">
+        <div class="slider-container">
+            <input type="range" id="border_radius" name="border_radius" min="0" max="10" value="5" step="0.1">
+            <div class="slider-tooltip" id="sliderTooltip">5</div>
+        </div>
         <input type="checkbox" id="enable_border" name="enable_border" checked>
 
         <!-- Submit and Reset buttons -->
@@ -178,6 +220,16 @@
             document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
             document.getElementById('table_id_updated').textContent = '';
             document.getElementById('player_name_updated').textContent = '';
+        });
+
+        // Slider tooltip functionality
+        const borderRadiusSlider = document.getElementById('border_radius');
+        const sliderTooltip = document.getElementById('sliderTooltip');
+        
+        borderRadiusSlider.addEventListener('input', function() {
+            sliderTooltip.textContent = borderRadiusSlider.value;
+            const percent = (borderRadiusSlider.value - borderRadiusSlider.min) / (borderRadiusSlider.max - borderRadiusSlider.min) * 100;
+            sliderTooltip.style.left = `calc(${percent}% + (${8 - percent * 0.15}px))`; // Adjust for tooltip positioning
         });
     </script>
 </body>
