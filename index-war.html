@@ -20,8 +20,8 @@
             font-size: 48px; /* Main font size */
             font-weight: 600;
             color: white;
-            padding: 20px;
-            border-spacing: 0;
+            padding: 0; /* Remove padding */
+            border-spacing: 0; /* Remove spacing between cells */
             border: 2px solid black; /* Border around the entire table */
         }
         .row {
@@ -31,7 +31,9 @@
             display: table-cell;
             padding: 0 20px;
             height: 132%;
-            /* Remove individual borders from cells */
+            border-top: 4px solid #b7b7b7; /* Thicker border on top */
+            border-bottom: 4px solid #b7b7b7; /* Thicker border on bottom */
+            border-radius: 0; /* Remove border radius */
         }
         .name-left, .name-right {
             text-align: center;
@@ -78,7 +80,7 @@
             const nameElements = document.querySelectorAll('.name-left, .name-right');
             nameElements.forEach(element => {
                 element.style.backgroundColor = nameColor;
-                element.style.borderRadius = `${borderRadius}px`;
+                element.style.borderRadius = '0'; /* Remove border radius */
                 element.style.borderLeftStyle = enableBorder ? 'solid' : 'none';
                 element.style.borderRightStyle = enableBorder ? 'solid' : 'none';
                 element.style.borderTopStyle = enableBorder ? 'solid' : 'none';
@@ -89,6 +91,7 @@
             cells.forEach(cell => {
                 cell.style.borderTopStyle = enableBorder ? 'solid' : 'none';
                 cell.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
+                cell.style.borderRadius = '0'; /* Remove border radius */
             });
         }
 
