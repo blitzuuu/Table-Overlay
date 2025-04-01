@@ -91,7 +91,22 @@
             cells.forEach(cell => {
                 cell.style.borderTopStyle = enableBorder ? 'solid' : 'none';
                 cell.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
+                cell.style.borderRadius = '0'; // Reset border radius for all cells
             });
+
+            // Apply border radius to leftmost cell and rightmost cell
+            const leftmostCell = document.querySelector('.row .cell:first-child');
+            const rightmostCell = document.querySelector('.row .cell:last-child');
+
+            if (leftmostCell) {
+                leftmostCell.style.borderTopLeftRadius = borderRadius;
+                leftmostCell.style.borderBottomLeftRadius = borderRadius;
+            }
+
+            if (rightmostCell) {
+                rightmostCell.style.borderTopRightRadius = borderRadius;
+                rightmostCell.style.borderBottomRightRadius = borderRadius;
+            }
 
             const table = document.getElementById('scores');
             if (table) {
