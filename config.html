@@ -88,20 +88,10 @@
 
         <!-- Player name is set to "blitzu" and hidden -->
         <input type="hidden" id="player_name" name="player_name" value="blitzu">
-
-        <!-- New section for color, border radius, and border toggle -->
-        <label for="name_color">Name Background Color:</label>
-        <input type="color" id="name_color" name="name_color" value="#f7008c">
         
-        <label for="border_radius">Border Radius (0-10):</label>
-        <input type="range" id="border_radius" name="border_radius" min="0" max="10" value="5">
-        
-        <label for="enable_border">Enable Border:</label>
-        <input type="checkbox" id="enable_border" name="enable_border" checked>
-
         <!-- Submit and Reset buttons -->
         <div class="button-container">
-            <button type="submit">Update</button>
+            <button type="submit">Submit</button>
             <button type="button" id="resetButton">Reset</button>
         </div>
     </form>
@@ -111,9 +101,6 @@
             event.preventDefault();
             const tableId = document.getElementById('table_id').value;
             const playerName = document.getElementById('player_name').value;
-            const nameColor = document.getElementById('name_color').value;
-            const borderRadius = document.getElementById('border_radius').value;
-            const enableBorder = document.getElementById('enable_border').checked;
 
             // Store the values in localStorage
             const prevTableId = localStorage.getItem('TABLE_ID');
@@ -121,9 +108,6 @@
 
             localStorage.setItem('TABLE_ID', tableId);
             localStorage.setItem('PLAYER_NAME', playerName);
-            localStorage.setItem('NAME_COLOR', nameColor);
-            localStorage.setItem('BORDER_RADIUS', borderRadius);
-            localStorage.setItem('ENABLE_BORDER', enableBorder);
 
             // Display updated message
             if (tableId !== prevTableId) {
@@ -138,7 +122,7 @@
 
             if (playerName !== prevPlayerName) {
                 const playerNameUpdated = document.getElementById('player_name_updated');
-                playerNameUpdated.textContent = 'Updated!';
+                playerNameUpdated.textContent = 'updated!';
                 setTimeout(() => {
                     playerNameUpdated.textContent = '';
                 }, 10000); // 10 seconds
@@ -157,13 +141,7 @@
         document.getElementById('resetButton').addEventListener('click', function() {
             localStorage.removeItem('TABLE_ID');
             localStorage.removeItem('PLAYER_NAME');
-            localStorage.removeItem('NAME_COLOR');
-            localStorage.removeItem('BORDER_RADIUS');
-            localStorage.removeItem('ENABLE_BORDER');
             document.getElementById('table_id').value = '';
-            document.getElementById('name_color').value = '#f7008c';
-            document.getElementById('border_radius').value = '5';
-            document.getElementById('enable_border').checked = true;
             document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
             document.getElementById('table_id_updated').textContent = '';
             document.getElementById('player_name_updated').textContent = '';
