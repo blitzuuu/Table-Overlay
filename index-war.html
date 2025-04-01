@@ -65,6 +65,7 @@
 </head>
 <body>
     <div id="scores"></div>
+    <button id="updateButton">Update</button>
     
     <script>
         let tableId = localStorage.getItem('TABLE_ID') || ''; // Default TABLE_ID is empty
@@ -248,6 +249,15 @@
             url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
             fetchAndUpdateScores();
         }
+
+        // Add event listener to the update button
+        document.getElementById('updateButton').addEventListener('click', () => {
+            // Fetch new border radius value from localStorage
+            borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
+            borderRadius = `${borderRadius}px`; // Convert to px
+            // Apply settings immediately
+            applySettings();
+        });
         
         // Fetch and update scores every 10 seconds
         setInterval(fetchAndUpdateScores, 10000);
