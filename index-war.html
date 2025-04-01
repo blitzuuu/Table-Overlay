@@ -65,7 +65,6 @@
 </head>
 <body>
     <div id="scores"></div>
-    <button id="updateButton">Update</button>
     
     <script>
         let tableId = localStorage.getItem('TABLE_ID') || ''; // Default TABLE_ID is empty
@@ -92,22 +91,7 @@
             cells.forEach(cell => {
                 cell.style.borderTopStyle = enableBorder ? 'solid' : 'none';
                 cell.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
-                cell.style.borderRadius = '0'; // Reset border radius for all cells
             });
-
-            // Apply border radius to leftmost cell and rightmost cell
-            const leftmostCell = document.querySelector('.row .cell:first-child');
-            const rightmostCell = document.querySelector('.row .cell:last-child');
-
-            if (leftmostCell) {
-                leftmostCell.style.borderTopLeftRadius = borderRadius;
-                leftmostCell.style.borderBottomLeftRadius = borderRadius;
-            }
-
-            if (rightmostCell) {
-                rightmostCell.style.borderTopRightRadius = borderRadius;
-                rightmostCell.style.borderBottomRightRadius = borderRadius;
-            }
 
             const table = document.getElementById('scores');
             if (table) {
@@ -249,15 +233,6 @@
             url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
             fetchAndUpdateScores();
         }
-
-        // Add event listener to the update button
-        document.getElementById('updateButton').addEventListener('click', () => {
-            // Fetch new border radius value from localStorage
-            borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
-            borderRadius = `${borderRadius}px`; // Convert to px
-            // Apply settings immediately
-            applySettings();
-        });
         
         // Fetch and update scores every 10 seconds
         setInterval(fetchAndUpdateScores, 10000);
