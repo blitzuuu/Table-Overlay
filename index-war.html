@@ -73,14 +73,15 @@
 
         // Fetch settings from localStorage
         const nameColor = localStorage.getItem('NAME_COLOR') || '#f7008c';
-        const borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
+        let borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
+        borderRadius = `${borderRadius}px`; // Convert to px
         const enableBorder = localStorage.getItem('ENABLE_BORDER') === 'true';
 
         function applySettings() {
             const nameElements = document.querySelectorAll('.name-left, .name-right');
             nameElements.forEach(element => {
                 element.style.backgroundColor = nameColor;
-                element.style.borderRadius = '0'; /* Remove border radius */
+                element.style.borderRadius = borderRadius; // Apply border radius
                 element.style.borderLeftStyle = enableBorder ? 'solid' : 'none';
                 element.style.borderRightStyle = enableBorder ? 'solid' : 'none';
                 element.style.borderTopStyle = enableBorder ? 'solid' : 'none';
@@ -91,7 +92,7 @@
             cells.forEach(cell => {
                 cell.style.borderTopStyle = enableBorder ? 'solid' : 'none';
                 cell.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
-                cell.style.borderRadius = '0'; /* Remove border radius */
+                cell.style.borderRadius = borderRadius; // Apply border radius
             });
         }
 
