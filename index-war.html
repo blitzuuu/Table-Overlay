@@ -81,7 +81,6 @@
             const nameElements = document.querySelectorAll('.name-left, .name-right');
             nameElements.forEach(element => {
                 element.style.backgroundColor = nameColor;
-                element.style.borderRadius = borderRadius; // Apply border radius
                 element.style.borderLeftStyle = enableBorder ? 'solid' : 'none';
                 element.style.borderRightStyle = enableBorder ? 'solid' : 'none';
                 element.style.borderTopStyle = enableBorder ? 'solid' : 'none';
@@ -92,8 +91,12 @@
             cells.forEach(cell => {
                 cell.style.borderTopStyle = enableBorder ? 'solid' : 'none';
                 cell.style.borderBottomStyle = enableBorder ? 'solid' : 'none';
-                cell.style.borderRadius = borderRadius; // Apply border radius
             });
+
+            const table = document.getElementById('scores');
+            if (table) {
+                table.style.borderRadius = borderRadius; // Apply border radius to the entire table
+            }
         }
 
         function fetchAndUpdateScores() {
