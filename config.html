@@ -85,13 +85,16 @@
     <form id="configForm">
         <label for="table_id">Table ID:<span id="table_id_updated" class="updated"></span></label>
         <input type="text" id="table_id" name="table_id" required>
+        
+        <label for="border_radius">Border Radius (1-10):<span id="border_radius_updated" class="updated"></span></label>
+        <input type="number" id="border_radius" name="border_radius" min="1" max="10" required>
 
         <!-- Player name is set to "blitzu" and hidden -->
         <input type="hidden" id="player_name" name="player_name" value="blitzu">
         
         <!-- Submit and Reset buttons -->
         <div class="button-container">
-            <button type="submit">Submit</button>
+            <button type="submit">Update</button>
             <button type="button" id="resetButton">Reset</button>
         </div>
     </form>
@@ -100,13 +103,16 @@
         document.getElementById('configForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const tableId = document.getElementById('table_id').value;
+            const borderRadius = document.getElementById('border_radius').value;
             const playerName = document.getElementById('player_name').value;
 
             // Store the values in localStorage
             const prevTableId = localStorage.getItem('TABLE_ID');
+            const prevBorderRadius = localStorage.getItem('BORDER_RADIUS');
             const prevPlayerName = localStorage.getItem('PLAYER_NAME');
 
             localStorage.setItem('TABLE_ID', tableId);
+            localStorage.setItem('BORDER_RADIUS', borderRadius);
             localStorage.setItem('PLAYER_NAME', playerName);
 
             // Display updated message
@@ -120,9 +126,19 @@
                 document.getElementById('table_id_updated').textContent = '';
             }
 
+            if (borderRadius !== prevBorderRadius) {
+                const borderRadiusUpdated = document.getElementById('border_radius_updated');
+                borderRadiusUpdated.textContent = 'Updated!';
+                setTimeout(() => {
+                    borderRadiusUpdated.textContent = '';
+                }, 10000); // 10 seconds
+            } else {
+                document.getElementById('border_radius_updated').textContent = '';
+            }
+
             if (playerName !== prevPlayerName) {
                 const playerNameUpdated = document.getElementById('player_name_updated');
-                playerNameUpdated.textContent = 'updated!';
+                playerNameUpdated.textContent = 'Updated!';
                 setTimeout(() => {
                     playerNameUpdated.textContent = '';
                 }, 10000); // 10 seconds
@@ -140,10 +156,13 @@
         // Reset button functionality
         document.getElementById('resetButton').addEventListener('click', function() {
             localStorage.removeItem('TABLE_ID');
+            localStorage.removeItem('BORDER_RADIUS');
             localStorage.removeItem('PLAYER_NAME');
             document.getElementById('table_id').value = '';
+            document.getElementById('border_radius').value = '';
             document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
             document.getElementById('table_id_updated').textContent = '';
+            document.getElementById('border_radius_updated').textContent = '';
             document.getElementById('player_name_updated').textContent = '';
         });
     </script>
