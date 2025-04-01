@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mogi Scores</title>
     <style>
-        /* Existing CSS styles */
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start; /* Align items at the top */
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+            background-color: transparent; /* Make background transparent */
+            font-family: 'Roboto Mono', monospace;
+            font-size: 30px; /* Main font size */
+            font-weight: 600;
+            color: #d3d3d3; /* Light grey color for all team names and scores */
+            padding: 20px; /* Add padding to all sides (top, right, bottom, left) */
+            padding-top: 50px; /* Add more padding to the top to prevent cut-off */
+        }
+        .highlight {
+            color: white; /* Highlight color for blitzu's team */
+        }
+        .white-text {
+            color: white; /* White color for race number and divider */
+        }
+        .tag {
+            display: inline-block;
+            margin-right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -74,15 +98,6 @@
                 fetchAndUpdateScores();
             }
         }
-
-        function checkForTableIdChange() {
-            const newTableId = localStorage.getItem('TABLE_ID') || 'default';
-            if (newTableId !== tableId) {
-                tableId = newTableId;
-                url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
-                fetchAndUpdateScores();
-            }
-        }
         
         function resetTable() {
             localStorage.removeItem('TABLE_ID');
@@ -100,8 +115,6 @@
         
         // Fetch and update scores every 10 seconds
         setInterval(fetchAndUpdateScores, 10000);
-        // Check for table ID change every 10 seconds
-        setInterval(checkForTableIdChange, 10000);
         
         // Initial fetch
         fetchAndUpdateScores();
