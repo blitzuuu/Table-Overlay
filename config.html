@@ -78,51 +78,6 @@
             font-size: 16px; /* Same size as Table ID */
             margin-left: 10px;
         }
-        .color-picker-container {
-            display: flex;
-            align-items: center;
-        }
-        .color-picker-wrapper {
-            display: flex;
-            align-items: center;
-            background-color: #3c404d;
-            border-radius: 5px;
-            padding: 5px;
-            width: 50px; /* Same width as border radius input */
-            height: 25px; /* Same height as border radius input */
-            justify-content: center;
-        }
-        .color-picker-container input[type="color"] {
-            width: 40px;  /* Make the color picker square */
-            height: 40px; /* Make the color picker square */
-            padding: 0;
-            border: none;
-        }
-        input#name_color {
-            width: 21px;
-        }
-        .input-number-container {
-            display: flex;
-            align-items: center;
-            margin-left: 10px;
-            height: 25px;
-        }
-        .input-number-container input[type="number"] {
-            -moz-appearance: textfield; /* Remove default number input arrows in Firefox */
-            width: 50px;  /* Make the number input box same size as color picker */
-            height: 25px; /* Make the number input box same size as color picker */
-            text-align: center;
-            background-color: #3c404d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-left: 5px;
-        }
-        .input-number-container input[type="number"]::-webkit-outer-spin-button,
-        .input-number-container input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none; /* Remove default number input arrows in Chrome */
-            margin: 0;
-        }
     </style>
 </head>
 <body>
@@ -135,17 +90,13 @@
         <input type="hidden" id="player_name" name="player_name" value="blitzu">
 
         <!-- New section for color, border radius, and border toggle -->
-        <div class="color-picker-container">
-            <label for="name_color">Name Background Color:</label>
-            <div class="color-picker-wrapper">
-                <input type="color" id="name_color" name="name_color" value="#f7008c">
-            </div>
-        </div>
+        <label for="name_color">Name Background Color:</label>
+        <input type="color" id="name_color" name="name_color" value="#f7008c">
         
-        <div class="input-number-container">
-            <label for="border_radius">Border Radius (0-10):</label>
-            <input type="number" id="border_radius" name="border_radius" min="0" max="10" value="5">
-        </div>
+        <label for="border_radius">Border Radius (0-10):</label>
+        <input type="range" id="border_radius" name="border_radius" min="0" max="10" value="5">
+        
+        <label for="enable_border">Enable Border:</label>
         <input type="checkbox" id="enable_border" name="enable_border" checked>
 
         <!-- Submit and Reset buttons -->
