@@ -125,6 +125,34 @@
             }
         }
 
+        function setInitialNameWidths() {
+            const nameElementsLeft = document.querySelectorAll('.name-left');
+            const nameElementsRight = document.querySelectorAll('.name-right');
+            let maxWidth = 0;
+
+            nameElementsLeft.forEach(element => {
+                const width = element.offsetWidth;
+                if (width > maxWidth) {
+                    maxWidth = width;
+                }
+            });
+
+            nameElementsRight.forEach(element => {
+                const width = element.offsetWidth;
+                if (width > maxWidth) {
+                    maxWidth = width;
+                }
+            });
+
+            nameElementsLeft.forEach(element => {
+                element.style.width = `${maxWidth}px`;
+            });
+
+            nameElementsRight.forEach(element => {
+                element.style.width = `${maxWidth}px`;
+            });
+        }
+
         function fetchAndUpdateScores() {
             const scoresContainer = document.getElementById('scores');
             if (!tableId) {
@@ -265,7 +293,7 @@
         // Check for table ID change every 10 seconds
         setInterval(checkForTableIdChange, 10000);
         
-        // Monitor local storage for changes to TABLE_ID
+        // Monitor local storage for changes to TABLE_ID and BORDER_RADIUS
         window.addEventListener('storage', (event) => {
             if (event.key === 'TABLE_ID') {
                 checkForTableIdChange();
@@ -276,6 +304,9 @@
                 applySettings(); // Reapply settings when BORDER_RADIUS changes
             }
         });
+
+        // Set initial widths for name elements
+        setInitialNameWidths();
         
         // Initial fetch
         fetchAndUpdateScores();
