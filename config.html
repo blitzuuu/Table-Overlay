@@ -98,9 +98,10 @@
         <label for="table_id">Table ID:<span id="table_id_updated" class="updated"></span></label>
         <input type="text" id="table_id" name="table_id">
         
+        <label for="border_radius">Corner Roundness (0-10):<span id="border_radius_updated" class="updated"></span></label>
+        <input type="number" id="border_radius" name="border_radius" min="0" max="10">
+
         <div class="inline-container">
-            <label for="border_radius">Corner Roundness (0-10):<span id="border_radius_updated" class="updated"></span></label>
-            <input type="number" id="border_radius" name="border_radius" min="0" max="10">
             <label for="border_toggle">Border:</label>
             <input type="checkbox" id="border_toggle" name="border_toggle">
         </div>
@@ -196,6 +197,13 @@
             document.getElementById('border_radius_updated').textContent = '';
             document.getElementById('border_toggle_updated').textContent = '';
             document.getElementById('player_name_updated').textContent = '';
+        });
+
+        // Update border immediately without page refresh
+        document.getElementById('border_toggle').addEventListener('change', function() {
+            const borderToggle = document.getElementById('border_toggle').checked;
+            localStorage.setItem('BORDER_TOGGLE', borderToggle);
+            window.dispatchEvent(new Event('storage'));
         });
     </script>
 </body>
