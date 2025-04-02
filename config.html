@@ -78,6 +78,18 @@
             font-size: 16px; /* Same size as Table ID */
             margin-left: 10px;
         }
+        .inline-container {
+            display: flex;
+            align-items: center;
+        }
+        .inline-container label {
+            margin-right: 10px;
+        }
+        .inline-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
@@ -86,12 +98,12 @@
         <label for="table_id">Table ID:<span id="table_id_updated" class="updated"></span></label>
         <input type="text" id="table_id" name="table_id">
         
-        <label for="border_radius">Corner Roundness (0-10):<span id="border_radius_updated" class="updated"></span></label>
-        <input type="number" id="border_radius" name="border_radius" min="0" max="10">
-
-        <!-- Checkbox to toggle border -->
-        <label for="border_toggle">Border:</label>
-        <input type="checkbox" id="border_toggle" name="border_toggle">
+        <div class="inline-container">
+            <label for="border_radius">Corner Roundness (0-10):<span id="border_radius_updated" class="updated"></span></label>
+            <input type="number" id="border_radius" name="border_radius" min="0" max="10">
+            <label for="border_toggle">Border:</label>
+            <input type="checkbox" id="border_toggle" name="border_toggle">
+        </div>
 
         <!-- Player name is set to "blitzu" and hidden -->
         <input type="hidden" id="player_name" name="player_name" value="blitzu">
