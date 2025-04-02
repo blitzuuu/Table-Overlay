@@ -81,30 +81,28 @@
         .inline-container {
             display: flex;
             align-items: center;
+            justify-content: space-between; /* Align items to the end */
+            width: 100%;
         }
         .inline-container label {
             margin-right: 10px;
         }
-        .inline-container input[type="checkbox"] {
+        .inline-container input[type="checkbox"], .inline-container input[type="color"] {
             width: 20px;
             height: 20px;
             margin: 0 5px;
-        }
-        .inline-container input[type="color"] {
-            width: 20px; /* Make the color picker a square */
-            height: 20px !important; /* Make the color picker a square */
-            margin: 0 5px; /* Align with the checkbox */
-            padding: 0; /* Remove padding */
-            border: none; /* Remove border */
-            background: none; /* Remove background */
-            -webkit-appearance: none; /* Remove default appearance for WebKit browsers */
-            appearance: none; /* Remove default appearance */
+            padding: 0; /* Remove padding for the color picker */
+            border: none; /* Remove border for the color picker */
+            background: none; /* Remove background for the color picker */
+            -webkit-appearance: none; /* Remove default appearance for the color picker */
+            appearance: none; /* Remove default appearance for the color picker */
         }
         .inline-container input[type="color"]::-webkit-color-swatch-wrapper {
             padding: 0; /* Remove padding from the color swatch wrapper */
         }
         .inline-container input[type="color"]::-webkit-color-swatch {
             border: none; /* Remove border from the color swatch */
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -118,10 +116,14 @@
         <input type="number" id="border_radius" name="border_radius" min="0" max="10">
 
         <div class="inline-container">
-            <label for="border_toggle">Border:</label>
-            <input type="checkbox" id="border_toggle" name="border_toggle">
-            <label for="color_picker">Color:</label>
-            <input type="color" id="color_picker" name="color_picker">
+            <div>
+                <label for="border_toggle">Border:</label>
+                <input type="checkbox" id="border_toggle" name="border_toggle">
+            </div>
+            <div>
+                <label for="color_picker">Color:</label>
+                <input type="color" id="color_picker" name="color_picker">
+            </div>
         </div>
 
         <!-- Player name is set to "blitzu" and hidden -->
