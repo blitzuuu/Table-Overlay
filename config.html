@@ -92,6 +92,8 @@
         }
         .inline-container input[type="color"] {
             margin-left: 10px;
+            width: 35px; /* Make the color picker a square */
+            height: 35px; /* Make the color picker a square */
         }
     </style>
 </head>
@@ -199,6 +201,11 @@
 
             // Trigger custom events to update other pages
             window.dispatchEvent(new Event('storage'));
+
+            // Update the color of the name cells immediately
+            document.querySelectorAll('.name-cell').forEach(cell => {
+                cell.style.color = colorPicker;
+            });
         });
 
         // Reset button functionality
@@ -224,17 +231,6 @@
         document.getElementById('border_toggle').addEventListener('change', function() {
             const borderToggle = document.getElementById('border_toggle').checked;
             localStorage.setItem('BORDER_TOGGLE', borderToggle);
-            window.dispatchEvent(new Event('storage'));
-        });
-
-        // Update color immediately without page refresh
-        document.getElementById('color_picker').addEventListener('input', function() {
-            const colorPicker = document.getElementById('color_picker').value;
-            localStorage.setItem('COLOR_PICKER', colorPicker);
-            // Update the color of the name cells
-            document.querySelectorAll('.name-cell').forEach(cell => {
-                cell.style.color = colorPicker;
-            });
             window.dispatchEvent(new Event('storage'));
         });
 
