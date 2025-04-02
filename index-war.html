@@ -5,66 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Scores</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden; /* Prevent scrollbars */
-            background-color: transparent; /* Make background transparent */
-        }
-        #scores {
-            display: none; /* Initially hide the scores div */
-            font-family: 'Roboto Mono', monospace;
-            font-size: 48px; /* Main font size */
-            font-weight: 600;
-            color: white;
-            padding: 0; /* Remove padding */
-            border-spacing: 0; /* Remove spacing between cells */
-            position: relative; /* Make the table positioned */
-            z-index: 10; /* Ensure the table is in front */
-        }
-        .row {
-            display: table-row;
-        }
-        .cell {
-            display: table-cell;
-            padding: 0 20px;
-            height: 132%;
-            border-top: 4px solid #b7b7b7; /* Thicker border on top */
-            border-bottom: 4px solid #b7b7b7; /* Thicker border on bottom */
-            border-radius: 0; /* Remove border radius */
-            position: relative; /* Make the cells positioned */
-            z-index: 1; /* Ensure the cells are behind the table border */
-        }
-        .name-left, .name-right {
-            text-align: center;
-            white-space: nowrap; /* Prevent text from wrapping */
-        }
-        .score-left {
-            text-align: right; /* Align left score to the right */
-            width: 3ch;
-            background-color: #575757; /* Background color for scores */
-        }
-        .races {
-            text-align: center;
-            width: 3ch;
-            background-color: #1f1f1f; /* Background color for race number */
-        }
-        .score-right {
-            text-align: left; /* Align right score to the left */
-            width: 3ch;
-            background-color: #575757; /* Background color for scores */
-        }
-        .small-text {
-            font-size: 24px; /* Smaller font size for race number */
-        }
-        .name-container {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden; /* Prevent scrollbars */
+        background-color: transparent; /* Make background transparent */
+    }
+    #scores {
+        display: none; /* Initially hide the scores div */
+        font-family: 'Roboto Mono', monospace;
+        font-size: 48px; /* Main font size */
+        font-weight: 600;
+        color: white;
+        padding: 0; /* Remove padding */
+        border-spacing: 0; /* Remove spacing between cells */
+        position: relative; /* Make the table positioned */
+        z-index: 10; /* Ensure the table is in front */
+    }
+    .row {
+        display: table-row;
+    }
+    .cell {
+        display: table-cell;
+        padding: 0 20px;
+        height: 132%;
+        border-radius: 0; /* Remove border radius */
+        position: relative; /* Make the cells positioned */
+        z-index: 1; /* Ensure the cells are behind the table border */
+    }
+    .cell:first-child {
+        border-left: 2px solid black;
+    }
+    .cell:last-child {
+        border-right: 2px solid black;
+    }
+    .row:first-child .cell {
+        border-top: 2px solid black;
+    }
+    .row:last-child .cell {
+        border-bottom: 2px solid black;
+    }
+    .name-left, .name-right {
+        text-align: center;
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
+    .name-left {
+        border-radius: 0 5px 0 0;
+    }
+    .score-left {
+        text-align: right; /* Align left score to the right */
+        width: 3ch;
+        background-color: #575757; /* Background color for scores */
+    }
+    .races {
+        text-align: center;
+        width: 3ch;
+        background-color: #1f1f1f; /* Background color for race number */
+    }
+    .score-right {
+        text-align: left; /* Align right score to the left */
+        width: 3ch;
+        background-color: #575757; /* Background color for scores */
+    }
+    .small-text {
+        font-size: 24px; /* Smaller font size for race number */
+    }
+    .name-container {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 </head>
 <body>
     <div id="scores"></div>
