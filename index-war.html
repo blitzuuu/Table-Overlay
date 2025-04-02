@@ -78,7 +78,7 @@
         const nameColor = localStorage.getItem('NAME_COLOR') || '#f7008c';
         let borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
         borderRadius = `${borderRadius}px`; // Convert to px
-        const enableBorder = localStorage.getItem('BORDER_TOGGLE') === 'true';
+        let enableBorder = localStorage.getItem('BORDER_TOGGLE') === 'true';
 
         function applySettings() {
             const nameElementsLeft = document.querySelectorAll('.name-left');
@@ -314,6 +314,7 @@
                 applySettings(); // Reapply settings when BORDER_RADIUS changes
             }
             if (event.key === 'BORDER_TOGGLE') {
+                enableBorder = localStorage.getItem('BORDER_TOGGLE') === 'true';
                 applySettings(); // Reapply settings when BORDER_TOGGLE changes
             }
         });
