@@ -270,6 +270,11 @@
             if (event.key === 'TABLE_ID') {
                 checkForTableIdChange();
             }
+            if (event.key === 'BORDER_RADIUS') {
+                borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
+                borderRadius = `${borderRadius}px`; // Convert to px
+                applySettings(); // Reapply settings when BORDER_RADIUS changes
+            }
         });
         
         // Initial fetch
