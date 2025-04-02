@@ -75,7 +75,7 @@
         let url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
 
         // Fetch settings from localStorage
-        const nameColor = localStorage.getItem('NAME_COLOR') || '#f7008c';
+        const nameColor = localStorage.getItem('COLOR_PICKER') || '#f7008c';
         let borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
         borderRadius = `${borderRadius}px`; // Convert to px
         let enableBorder = localStorage.getItem('BORDER_TOGGLE') === 'true';
@@ -303,7 +303,7 @@
         // Check for table ID change every 10 seconds
         setInterval(checkForTableIdChange, 10000);
         
-        // Monitor local storage for changes to TABLE_ID, BORDER_RADIUS, and BORDER_TOGGLE
+        // Monitor local storage for changes to TABLE_ID, BORDER_RADIUS, BORDER_TOGGLE, and COLOR_PICKER
         window.addEventListener('storage', (event) => {
             if (event.key === 'TABLE_ID') {
                 checkForTableIdChange();
@@ -316,6 +316,10 @@
             if (event.key === 'BORDER_TOGGLE') {
                 enableBorder = localStorage.getItem('BORDER_TOGGLE') === 'true';
                 applySettings(); // Reapply settings when BORDER_TOGGLE changes
+            }
+            if (event.key === 'COLOR_PICKER') {
+                nameColor = localStorage.getItem('COLOR_PICKER') || '#f7008c';
+                applySettings(); // Reapply settings when COLOR_PICKER changes
             }
         });
 
