@@ -85,15 +85,21 @@
         .inline-container label {
             margin-right: 10px;
         }
-        .inline-container input[type="checkbox"] {
+        .inline-container input[type="checkbox"], .inline-container input[type="color"] {
             width: 20px;
             height: 20px;
             margin: 0 5px;
+            padding: 0; /* Remove padding for the color picker */
+            border: none; /* Remove border for the color picker */
+            background: none; /* Remove background for the color picker */
+            -webkit-appearance: none; /* Remove default appearance for the color picker */
+            appearance: none; /* Remove default appearance for the color picker */
         }
-        .inline-container input[type="color"] {
-            margin-left: 10px;
-            width: 35px; /* Make the color picker a square */
-            height: 35px; /* Make the color picker a square */
+        .inline-container input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0; /* Remove padding from the color swatch wrapper */
+        }
+        .inline-container input[type="color"]::-webkit-color-swatch {
+            border: none; /* Remove border from the color swatch */
         }
     </style>
 </head>
