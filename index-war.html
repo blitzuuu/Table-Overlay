@@ -125,28 +125,28 @@
         function setInitialNameWidths() {
             const nameElementsLeft = document.querySelectorAll('.name-left');
             const nameElementsRight = document.querySelectorAll('.name-right');
-            let maxWidth = 0;
+            let maxLength = 0;
 
             nameElementsLeft.forEach(element => {
-                const width = element.offsetWidth;
-                if (width > maxWidth) {
-                    maxWidth = width;
+                const length = element.textContent.length;
+                if (length > maxLength) {
+                    maxLength = length;
                 }
             });
 
             nameElementsRight.forEach(element => {
-                const width = element.offsetWidth;
-                if (width > maxWidth) {
-                    maxWidth = width;
+                const length = element.textContent.length;
+                if (length > maxLength) {
+                    maxLength = length;
                 }
             });
 
             nameElementsLeft.forEach(element => {
-                element.style.width = `${maxWidth}px`;
+                element.style.width = `${maxLength}ch`;
             });
 
             nameElementsRight.forEach(element => {
-                element.style.width = `${maxWidth}px`;
+                element.style.width = `${maxLength}ch`;
             });
         }
 
@@ -248,9 +248,9 @@
                         scoresContainer.appendChild(row);
                         
                         // Adjust the width of the team name cells based on the largest name
-                        const maxNameWidth = Math.max(name1.offsetWidth, name2.offsetWidth);
-                        name1.style.width = `${maxNameWidth}px`;
-                        name2.style.width = `${maxNameWidth}px`;
+                        const maxLength = Math.max(name1.textContent.length, name2.textContent.length);
+                        name1.style.width = `${maxLength}ch`;
+                        name2.style.width = `${maxLength}ch`;
                         
                         // Display the scores container
                         scoresContainer.style.display = 'table';
