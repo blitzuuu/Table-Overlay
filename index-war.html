@@ -77,7 +77,7 @@
         display: flex;
         justify-content: center;
     }
-</style>
+    </style>
 </head>
 <body>
     <div id="scores"></div>
@@ -94,6 +94,16 @@
         const enableBorder = localStorage.getItem('ENABLE_BORDER') === 'true';
 
         function applySettings() {
+            const nameElementsLeft = document.querySelectorAll('.name-left');
+            nameElementsLeft.forEach(element => {
+                element.style.borderRadius = `${borderRadius} 0 0 ${borderRadius}`;
+            });
+
+            const nameElementsRight = document.querySelectorAll('.name-right');
+            nameElementsRight.forEach(element => {
+                element.style.borderRadius = `0 ${borderRadius} ${borderRadius} 0`;
+            });
+
             const nameElements = document.querySelectorAll('.name-left, .name-right');
             nameElements.forEach(element => {
                 element.style.backgroundColor = nameColor;
@@ -223,7 +233,7 @@
                         console.error('Not enough teams found in the fetched data');
                         scoresContainer.style.display = 'none'; // Hide the scores container
                     }
-
+                    
                     // Apply settings after updating the scores
                     applySettings();
                 })
