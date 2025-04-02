@@ -90,6 +90,9 @@
             height: 20px;
             margin: 0 5px;
         }
+        .inline-container input[type="color"] {
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +107,8 @@
         <div class="inline-container">
             <label for="border_toggle">Border:</label>
             <input type="checkbox" id="border_toggle" name="border_toggle">
+            <label for="color_picker">Color:</label>
+            <input type="color" id="color_picker" name="color_picker">
         </div>
 
         <!-- Player name is set to "blitzu" and hidden -->
@@ -122,17 +127,20 @@
             const tableId = document.getElementById('table_id').value;
             const borderRadius = document.getElementById('border_radius').value;
             const borderToggle = document.getElementById('border_toggle').checked;
+            const colorPicker = document.getElementById('color_picker').value;
             const playerName = document.getElementById('player_name').value;
 
             // Store the values in localStorage
             const prevTableId = localStorage.getItem('TABLE_ID');
             const prevBorderRadius = localStorage.getItem('BORDER_RADIUS');
             const prevBorderToggle = localStorage.getItem('BORDER_TOGGLE') === 'true';
+            const prevColorPicker = localStorage.getItem('COLOR_PICKER');
             const prevPlayerName = localStorage.getItem('PLAYER_NAME');
 
             localStorage.setItem('TABLE_ID', tableId);
             localStorage.setItem('BORDER_RADIUS', borderRadius);
             localStorage.setItem('BORDER_TOGGLE', borderToggle);
+            localStorage.setItem('COLOR_PICKER', colorPicker);
             localStorage.setItem('PLAYER_NAME', playerName);
 
             // Display updated message
@@ -166,6 +174,16 @@
                 document.getElementById('border_toggle_updated').textContent = '';
             }
 
+            if (colorPicker !== prevColorPicker) {
+                const colorPickerUpdated = document.getElementById('color_picker_updated');
+                colorPickerUpdated.textContent = 'Updated!';
+                setTimeout(() => {
+                    colorPickerUpdated.textContent = '';
+                }, 10000); // 10 seconds
+            } else {
+                document.getElementById('color_picker_updated').textContent = '';
+            }
+
             if (playerName !== prevPlayerName) {
                 const playerNameUpdated = document.getElementById('player_name_updated');
                 playerNameUpdated.textContent = 'Updated!';
@@ -188,14 +206,17 @@
             localStorage.removeItem('TABLE_ID');
             localStorage.removeItem('BORDER_RADIUS');
             localStorage.removeItem('BORDER_TOGGLE');
+            localStorage.removeItem('COLOR_PICKER');
             localStorage.removeItem('PLAYER_NAME');
             document.getElementById('table_id').value = '';
             document.getElementById('border_radius').value = '';
             document.getElementById('border_toggle').checked = false;
+            document.getElementById('color_picker').value = '#000000';
             document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
             document.getElementById('table_id_updated').textContent = '';
             document.getElementById('border_radius_updated').textContent = '';
             document.getElementById('border_toggle_updated').textContent = '';
+            document.getElementById('color_picker_updated').textContent = '';
             document.getElementById('player_name_updated').textContent = '';
         });
 
@@ -205,6 +226,26 @@
             localStorage.setItem('BORDER_TOGGLE', borderToggle);
             window.dispatchEvent(new Event('storage'));
         });
+
+        // Update color immediately without page refresh
+        document.getElementById('color_picker').addEventListener('input', function() {
+            const colorPicker = document.getElementById('color_picker').value;
+            localStorage.setItem('COLOR_PICKER', colorPicker);
+            // Update the color of the name cells
+            document.querySelectorAll('.name-cell').forEach(cell => {
+                cell.style.color = colorPicker;
+            });
+            window.dispatchEvent(new Event('storage'));
+        });
+
+        // Apply stored color to name cells on page load
+        const storedColor = localStorage.getItem('COLOR_PICKER');
+        if (storedColor) {
+            document.getElementById('color_picker').value = storedColor;
+            document.querySelectorAll('.name-cell').forEach(cell => {
+                cell.style.color = storedColor;
+            });
+        }
     </script>
 </body>
 </html>
