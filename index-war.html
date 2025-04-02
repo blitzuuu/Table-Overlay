@@ -75,7 +75,7 @@
         let url = `https://mkw-table-bot-api.jprq.site/api/html/full_scores/${tableId}`;
 
         // Fetch settings from localStorage
-        const nameColor = localStorage.getItem('COLOR_PICKER') || '#f7008c';
+        let nameColor = localStorage.getItem('COLOR_PICKER') || '#f7008c';
         let borderRadius = localStorage.getItem('BORDER_RADIUS') || '5';
         borderRadius = `${borderRadius}px`; // Convert to px
         let enableBorder = localStorage.getItem('BORDER_TOGGLE') === 'true';
