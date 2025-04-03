@@ -130,7 +130,7 @@
     <!-- Form to configure team scores -->
     <form id="configForm">
         <label for="table_id">Table ID:<span id="table_id_updated" class="updated"></span></label>
-        <input type="text" id="table_id" name="table_id">
+        <input type="text" id="table_id" name="table_id" pattern="\d*" title="Only numbers are allowed">
         
         <label for="border_radius">Corner Roundness (0-10):<span id="border_radius_updated" class="updated"></span></label>
         <input type="number" id="border_radius" name="border_radius" min="0" max="10">
@@ -171,6 +171,18 @@
             const borderToggle = document.getElementById('border_toggle').checked;
             const colorPicker = document.getElementById('color_picker').value;
             const playerName = document.getElementById('player_name').value;
+
+            // Validate Table ID to ensure it only contains numbers
+            if (!/^\d+$/.test(tableId)) {
+                alert('Table ID must be a number.');
+                return;
+            }
+
+            // Validate Border Radius to ensure it is between 0 and 10
+            if (borderRadius < 0 || borderRadius > 10) {
+                alert('Corner Roundness must be between 0 and 10.');
+                return;
+            }
 
             // Store the values in localStorage
             localStorage.setItem('TABLE_ID', tableId);
