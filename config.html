@@ -107,6 +107,23 @@
         .inline-container input[type="color"]::-webkit-color-swatch {
             border: none; /* Remove border from the color swatch */
         }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: lightgreen;
+            color: green;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .notification.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +152,18 @@
         </div>
     </form>
 
+    <div id="notification" class="notification"></div>
+
     <script>
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000); // 5 seconds
+        }
+
         document.getElementById('configForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const tableId = document.getElementById('table_id').value;
@@ -145,71 +173,13 @@
             const playerName = document.getElementById('player_name').value;
 
             // Store the values in localStorage
-            const prevTableId = localStorage.getItem('TABLE_ID');
-            const prevBorderRadius = localStorage.getItem('BORDER_RADIUS');
-            const prevBorderToggle = localStorage.getItem('BORDER_TOGGLE') === 'true';
-            const prevColorPicker = localStorage.getItem('COLOR_PICKER');
-            const prevPlayerName = localStorage.getItem('PLAYER_NAME');
-
             localStorage.setItem('TABLE_ID', tableId);
             localStorage.setItem('BORDER_RADIUS', borderRadius);
             localStorage.setItem('BORDER_TOGGLE', borderToggle);
             localStorage.setItem('COLOR_PICKER', colorPicker);
             localStorage.setItem('PLAYER_NAME', playerName);
 
-            // Display updated message
-            if (tableId !== prevTableId) {
-                const tableIdUpdated = document.getElementById('table_id_updated');
-                tableIdUpdated.textContent = 'Updated!';
-                setTimeout(() => {
-                    tableIdUpdated.textContent = '';
-                }, 10000); // 10 seconds
-            } else {
-                document.getElementById('table_id_updated').textContent = '';
-            }
-
-            if (borderRadius !== prevBorderRadius) {
-                const borderRadiusUpdated = document.getElementById('border_radius_updated');
-                borderRadiusUpdated.textContent = 'Updated!';
-                setTimeout(() => {
-                    borderRadiusUpdated.textContent = '';
-                }, 10000); // 10 seconds
-            } else {
-                document.getElementById('border_radius_updated').textContent = '';
-            }
-
-            if (borderToggle !== prevBorderToggle) {
-                const borderToggleUpdated = document.getElementById('border_toggle_updated');
-                borderToggleUpdated.textContent = 'Updated!';
-                setTimeout(() => {
-                    borderToggleUpdated.textContent = '';
-                }, 10000); // 10 seconds
-            } else {
-                document.getElementById('border_toggle_updated').textContent = '';
-            }
-
-            if (colorPicker !== prevColorPicker) {
-                const colorPickerUpdated = document.getElementById('color_picker_updated');
-                colorPickerUpdated.textContent = 'Updated!';
-                setTimeout(() => {
-                    colorPickerUpdated.textContent = '';
-                }, 10000); // 10 seconds
-            } else {
-                document.getElementById('color_picker_updated').textContent = '';
-            }
-
-            if (playerName !== prevPlayerName) {
-                const playerNameUpdated = document.getElementById('player_name_updated');
-                playerNameUpdated.textContent = 'Updated!';
-                setTimeout(() => {
-                    playerNameUpdated.textContent = '';
-                }, 10000); // 10 seconds
-            } else {
-                document.getElementById('player_name_updated').textContent = '';
-            }
-
-            // Display confirmation message
-            document.getElementById('confirmation').textContent = 'Configuration saved! You can now view the scores on the index-war page.';
+            showNotification('Updated');
 
             // Trigger custom events to update other pages
             window.dispatchEvent(new Event('storage'));
@@ -231,12 +201,8 @@
             document.getElementById('border_radius').value = '';
             document.getElementById('border_toggle').checked = false;
             document.getElementById('color_picker').value = '#000000';
-            document.getElementById('confirmation').textContent = 'Configuration reset! All fields are now blank.';
-            document.getElementById('table_id_updated').textContent = '';
-            document.getElementById('border_radius_updated').textContent = '';
-            document.getElementById('border_toggle_updated').textContent = '';
-            document.getElementById('color_picker_updated').textContent = '';
-            document.getElementById('player_name_updated').textContent = '';
+
+            showNotification('Reset');
         });
 
         // Update border immediately without page refresh
